@@ -42,7 +42,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
     if (_passwordCtrl.text != _confirmPasswordCtrl.text) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Passwords do not match")),
+         SnackBar(content: Text("Passwords do not match")),
       );
       return;
     }
@@ -77,8 +77,8 @@ class _SignUpPageState extends State<SignUpPage> {
         const SnackBar(content: Text('Registration Successfully')),
       );
 
-      await Future.delayed(const Duration(milliseconds: 500));
-      Navigator.pushReplacementNamed(context, '/signIn');
+      // await Future.delayed(const Duration(milliseconds: 500));
+      Navigator.pushNamed(context, '/signIn');
     } on FirebaseAuthException catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(

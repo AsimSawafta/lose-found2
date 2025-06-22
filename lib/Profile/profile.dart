@@ -49,71 +49,6 @@ class _ProfileScreenState extends State<Profile> {
 
   }
 
-  // Future<void> _onEdit() async {
-  //   final updated = await Navigator.push<ProfileData>(
-  //     context,
-  //     MaterialPageRoute(
-  //       builder: (_) => EditProfileScreen(
-  //         initial: ProfileData(username!, bio!, avatarUrl!),
-  //       ),
-  //     ),
-  //   );
-  //   if (updated != null) {
-  //     await FirebaseFirestore.instance
-  //         .collection('users')
-  //         .doc(uid)
-  //         .update({
-  //       'username':  updated.name,
-  //       'bio':       updated.bio,
-  //       'avatarURL': updated.imageUrl,
-  //     });
-  //
-  //     final posts = await FirebaseFirestore.instance
-  //         .collection('posts')
-  //         .where('authorId', isEqualTo: uid)
-  //         .get();
-  //
-  //     for (final post in posts.docs) {
-  //       await FirebaseFirestore.instance
-  //           .collection('posts')
-  //           .doc(post.id)
-  //           .update({
-  //         'authorName': updated.name,
-  //         'authorAvatar': updated.imageUrl,
-  //       });
-  //     }
-  //
-  //     final allPosts = await FirebaseFirestore.instance
-  //         .collection('posts')
-  //         .get();
-  //
-  //     for (final post in allPosts.docs) {
-  //       final comments = await FirebaseFirestore.instance
-  //           .collection('posts')
-  //           .doc(post.id)
-  //           .collection('comments')
-  //           .where('authorId', isEqualTo: uid)
-  //           .get();
-  //
-  //       for (final comment in comments.docs) {
-  //         await FirebaseFirestore.instance
-  //             .collection('posts')
-  //             .doc(post.id)
-  //             .collection('comments')
-  //             .doc(comment.id)
-  //             .update({
-  //           'username': updated.name,
-  //           'avatarURL': updated.imageUrl,
-  //         });
-  //       }
-  //     }
-  //
-  //     setState(() {
-  //       _loadProfile();
-  //     });
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     if (isLoading) {
@@ -157,43 +92,43 @@ class _ProfileScreenState extends State<Profile> {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      'Joined: ${joined!.toLocal().toShortDateString()}',
+                      'Joined: ${formatShortDate(joined!.toLocal())}',
                       style: const TextStyle(color: AppColors.indianRed),
                     ),
                   ],
                 ),
                 const Spacer(),
                 IconButton(
-                  icon: const Icon(Icons.edit, color: AppColors.darkRed),
-                  // onPressed: _onEdit,
-                  onPressed: ()async {
-                    await Navigator.pushNamed(context, '/editProfile');
-                    await _loadProfile();
-                  setState(() {
+                    icon: const Icon(Icons.edit, color: AppColors.darkRed),
+                    // onPressed: _onEdit,
+                    onPressed: ()async {
+                      await Navigator.pushNamed(context, '/editProfile');
+                      await _loadProfile();
+                      setState(() {
 
-                  });
+                      });
 
-                  }
+                    }
 
                 ),
               ],
             ),
           ),
 
-           Divider(color: AppColors.greyBeige),
+          Divider(color: AppColors.greyBeige),
 
           // ----- POSTS -----
-           UserPostsWidget(),
+          UserPostsWidget(),
         ],
       ),
     );
   }
 }
 
-extension on DateTime {
-  String toShortDateString() {
-    final m = month.toString().padLeft(2, '0');
-    final d = day.toString().padLeft(2, '0');
-    return '$year-$m-$d';
-  }
+
+String formatShortDate(DateTime date) {
+  final m = date.month.toString().padLeft(2, '0');
+  final d = date.day.toString().padLeft(2, '0');
+  return '${date.year}-$m-$d';
 }
+//'Joined: ${formatShortDate(joined!.toLocal())}',

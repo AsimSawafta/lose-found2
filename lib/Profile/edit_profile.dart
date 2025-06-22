@@ -52,36 +52,9 @@ class EditProfileScreenState extends State<EditProfileScreen> {
       'bio': newBio,
       'avatarURL': newUrl,
     });
-    Navigator.pop(context);
-    // update posts
-    final posts = await FirebaseFirestore.instance
-        .collection('posts')
-        .where('authorId', isEqualTo: user.uid)
-        .get();
-    for (final post in posts.docs) {
-      await post.reference.update({
-        'authorName': newName,
-        'authorAvatar': newUrl,
-      });
-    }
 
-    // update comments
-    final allPosts = await FirebaseFirestore.instance
-        .collection('posts')
-        .get();
-    for (final post in allPosts.docs) {
-      final comments = await post.reference
-          .collection('comments')
-          .where('authorId', isEqualTo: user.uid)
-          .get();
-      for (final c in comments.docs) {
-        await c.reference.update({
-          'username': newName,
-          'avatarURL': newUrl,
-        });
-      }
-    }
-   // Navigator.pop(context);
+
+    Navigator.pop(context);
     setState(() {});
 
   }

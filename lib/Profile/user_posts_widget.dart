@@ -4,140 +4,172 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lose_found/Posts/post_actions.dart';
 import 'edit_post.dart';
 
-class AppColors {
-  static const Color darkRed   = Color(0xFF3D0A05);
-  static const Color greyBeige = Color(0xFFA58570);
-  static const Color rubyRed   = Color(0xFF7F1F0E);
-  static const Color silk      = Color(0xFFDAC1B1);
-  static const Color indianRed = Color(0xFFAC746C);
-}
-
 class UserPostsWidget extends StatelessWidget {
   const UserPostsWidget({Key? key}) : super(key: key);
 
+  String formatTimeAgo(DateTime date) {
+    final diff = DateTime.now().difference(date);
+    if (diff.inSeconds < 60) return 'now';
+    if (diff.inMinutes < 60) return '${diff.inMinutes} min ago';
+    if (diff.inHours < 24) return '${diff.inHours} hr ago';
+    return '${diff.inDays} day${diff.inDays > 1 ? 's' : ''} ago';
+  }
+
   @override
   Widget build(BuildContext context) {
-    final currentUser = FirebaseAuth.instance.currentUser;
-    if (currentUser == null) {
-      return const Padding(
-        padding: EdgeInsets.all(16),
-        child: Center(
-          child: Text(
-            "User not logged in",
-            style: TextStyle(color: AppColors.silk),
-          ),
-        ),
-      );
-    }
-
-    final query  = FirebaseFirestore.instance
-        .collection('posts')
-        .where('authorId', isEqualTo: currentUser.uid);
+    final user = FirebaseAuth.instance.currentUser!;
+    final userRef = FirebaseFirestore.instance.collection('users').doc(user.uid);
 
     return StreamBuilder(
-      stream: query.snapshots(),
-      builder: (ctx, snapshot) {
+      stream: FirebaseFirestore.instance
+          .collection('posts')
+          .where('authorRef', isEqualTo: userRef).snapshots(),
+      builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Padding(
-            padding: EdgeInsets.all(16),
-            child: Center(child: CircularProgressIndicator()),
-          );
+          return  Center(child: CircularProgressIndicator());
         }
-        if (snapshot.hasError) {
-          return Padding(
-            padding: const EdgeInsets.all(16),
-            child: Center(
-              child: Text(
-                "Error: ${snapshot.error}",
-                style: const TextStyle(color: AppColors.silk),
-              ),
-            ),
-          );
+        if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+          return  Center(child: Text('No posts yet.'));
         }
 
-        final docs = snapshot.data?.docs ?? [];
-        if (docs.isEmpty) {
-          return const Padding(
-            padding: EdgeInsets.all(16),
-            child: Center(
-              child: Text(
-                "You haven't posted anything yet",
-                style: TextStyle(color: AppColors.silk),
-              ),
-            ),
-          );
-        }
-
-        // This ListView.builder itself is NOT scrollable;
-        // it will expand to fit its children and let the outer ListView scroll.
+        final docs = snapshot.data!.docs;
         return ListView.builder(
-          physics:  NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          padding:  EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+          physics:  NeverScrollableScrollPhysics(),
           itemCount: docs.length,
-          itemBuilder: (ctx, i) {
-            final data = docs[i].data() as Map<String, dynamic>;
-            final docId = docs[i].id;
+          itemBuilder: (context, i) {
+            final data = docs[i].data()! as Map<String, dynamic>;
+            final postId = docs[i].id;
+            final createdAt = (data['createdAt'] as Timestamp).toDate();
+            final imageURL = data['imageURL'] as String;
+            final description = data['description'] as String;
+            final isResolved = data['isResolved'] as bool;
+            final authorRef = data['authorRef'] as DocumentReference;
 
             return Card(
+              margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
               elevation: 2,
-              margin:
-               EdgeInsets.symmetric(horizontal: 8, vertical: 6),
               child: Padding(
-                padding:  EdgeInsets.all(12),
+                padding: const EdgeInsets.all(12),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    if ((data['imageURL'] as String).isNotEmpty) ...[
-                       SizedBox(height: 8),
+                    // header with real-time author info + edit button
+                    StreamBuilder(
+                      stream: authorRef.snapshots(),
+                      builder: (context, snap) {
+                        if (snap.connectionState == ConnectionState.waiting) {
+                          return Row(
+                            children: const [
+                              CircleAvatar(radius: 20),
+                              SizedBox(width: 12),
+                              Text(
+                                'Loading…',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          );
+                        }
+                        if (!snap.hasData || !snap.data!.exists) {
+                          return Row(
+                            children: const [
+                              CircleAvatar(radius: 20),
+                              SizedBox(width: 12),
+                              Text(
+                                'Unknown user',
+                                style: TextStyle(
+                                  fontStyle: FontStyle.italic,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          );
+                        }
+                        final userData =
+                        snap.data!.data()! as Map<String, dynamic>;
+                        final authorName =
+                            userData['username'] as String? ?? '';
+                        final authorAvatar =
+                            userData['avatarURL'] as String? ?? '';
+                        return Row(
+                          children: [
+                            CircleAvatar(
+                              radius: 20,
+                              backgroundImage: authorAvatar.isNotEmpty
+                                  ? NetworkImage(authorAvatar)
+                                  : null,
+                              child: authorAvatar.isEmpty
+                                  ? const Icon(Icons.person,
+                                  size: 20, color: Colors.white)
+                                  : null,
+                            ),
+                            const SizedBox(width: 12),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  authorName,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  formatTimeAgo(createdAt),
+                                  style: const TextStyle(
+                                      fontSize: 12, color: Colors.grey),
+                                ),
+                              ],
+                            ),
+                            const Spacer(),
+                            IconButton(
+                              icon: const Icon(
+                                Icons.edit,
+                                size: 20,
+                                color: Colors.grey,
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => EditPostScreen(
+                                      docId: postId,
+                                      initial: data,
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    ),
+
+                    // description
+                    if (description.isNotEmpty) ...[
+                      const SizedBox(height: 8),
+                      Text(description),
+                    ],
+
+                    // image
+                    if (imageURL.isNotEmpty) ...[
+                      const SizedBox(height: 8),
                       Container(
                         height: 300,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
                           image: DecorationImage(
-                            image: NetworkImage(data['imageURL']),
+                            image: NetworkImage(imageURL),
                             fit: BoxFit.cover,
                           ),
                         ),
                       ),
                     ],
-                    if ((data['description'] as String).isNotEmpty) ...[
-                      const SizedBox(height: 8),
-                      Text(
-                        data['description'],
-                        style: const TextStyle(color: AppColors.darkRed),
-                      ),
-                    ],
+
                     const SizedBox(height: 8),
                     PostActions(
-                      key: ValueKey(docId),
-                      postId: docId,
-                      isResolved: data['isResolved'] as bool,
+                      key: ValueKey(postId),
+                      postId: postId,
+                      isResolved: isResolved,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        TextButton.icon(
-                          icon: const Icon(Icons.edit, color: AppColors.indianRed),
-                          label: const Text(
-                            'Edit',
-                            style: TextStyle(color: AppColors.indianRed),
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                              ctx,
-                              MaterialPageRoute(
-                                builder: (_) => EditPostScreen(
-                                  docId: docId,
-                                  initial: data,
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-
                   ],
                 ),
               ),

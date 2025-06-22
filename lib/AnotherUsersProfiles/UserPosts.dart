@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:lose_found/Posts/post_actions.dart';
 
 class UserPosts extends StatelessWidget {
-  final String postId;
+  final String uid;
 
   const UserPosts({
     Key? key,
-    required this.postId,
+    required this.uid,
   }) : super(key: key);
 
   String formatTimeAgo(DateTime date) {
@@ -20,11 +20,13 @@ class UserPosts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userRef = FirebaseFirestore.instance.collection('users').doc(uid);
     final query = FirebaseFirestore.instance
         .collection('posts')
-        .where('authorId', isEqualTo: postId);
+        .where('authorRef', isEqualTo: userRef);
 
-    return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+
+    return StreamBuilder(
       stream: query.snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -33,6 +35,7 @@ class UserPosts extends StatelessWidget {
             child: Center(child: CircularProgressIndicator()),
           );
         }
+
 
         if (snapshot.hasError) {
           return const Padding(
@@ -52,7 +55,7 @@ class UserPosts extends StatelessWidget {
             padding: EdgeInsets.all(16),
             child: Center(
               child: Text(
-                "You haven't posted anything yet",
+                "haven't posted anything yet",
                 style: TextStyle(color: Colors.black),
               ),
             ),
@@ -60,85 +63,99 @@ class UserPosts extends StatelessWidget {
         }
 
         return ListView.builder(
-          physics: const NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
           itemCount: docs.length,
+          shrinkWrap: true,
+          physics:  NeverScrollableScrollPhysics(),
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+
           itemBuilder: (context, i) {
             final docSnapshot = docs[i];
             final data = docSnapshot.data();
             final thisPostId = docSnapshot.id;
-            final createdAt = (data['createdAt'] as Timestamp?)?.toDate();
+            final createdAt = (data['createdAt'] as Timestamp).toDate();
+            final description = data['description'] as String? ?? '';
+            final imageURL = data['imageURL'] as String? ?? '';
+            final isResolved = data['isResolved'] as bool? ?? false;
+            final authorRef = data['authorRef'] as DocumentReference;
 
-            return Card(
-              margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
-              elevation: 2,
-              child: Padding(
-                padding: const EdgeInsets.all(12),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // header
-                    Row(
+            return FutureBuilder(
+              future: authorRef.get(),
+              builder: (context, snap) {
+                final hasUser = snap.hasData && snap.data!.exists;
+                final userData = hasUser ? snap.data!.data()! as Map<String, dynamic>: <String, dynamic>{};
+                final authorName = userData['username'] as String? ?? '';
+                final authorAvatar = userData['avatarURL'] as String? ?? '';
+
+                return Card(
+                  margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+                  elevation: 2,
+                  child: Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        CircleAvatar(
-                          radius: 20,
-                          backgroundImage: (data['authorAvatar'] as String).isNotEmpty
-                              ? NetworkImage(data['authorAvatar'])
-                              : null,
-                          child: (data['authorAvatar'] as String).isEmpty
-                              ? const Icon(Icons.person, size: 20, color: Colors.white)
-                              : null,
-                        ),
-                        const SizedBox(width: 12),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        // header
+                        Row(
                           children: [
-                            Text(
-                              data['authorName'] as String? ?? '',
-                              style: const TextStyle(fontWeight: FontWeight.bold),
+                            CircleAvatar(
+                              radius: 20,
+                              backgroundImage: authorAvatar.isNotEmpty
+                                  ? NetworkImage(authorAvatar)
+                                  : null,
+                              child: authorAvatar.isEmpty
+                                  ? const Icon(Icons.person, size: 20, color: Colors.white)
+                                  : null,
                             ),
-                            if (createdAt != null)
-                              Text(
-                                formatTimeAgo(createdAt),
-                                style: const TextStyle(fontSize: 12, color: Colors.grey),
-                              ),
+                            const SizedBox(width: 12),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  authorName,
+                                  style: const TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  formatTimeAgo(createdAt),
+                                  style: const TextStyle(fontSize: 12, color: Colors.grey),
+                                ),
+                              ],
+                            ),
                           ],
+                        ),
+
+                        // description
+                        if (description.isNotEmpty) ...[
+                          const SizedBox(height: 8),
+                          Text(description),
+                        ],
+
+                        // image
+                        if (imageURL.isNotEmpty) ...[
+                          const SizedBox(height: 8),
+                          Container(
+                            height: 300,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              image: DecorationImage(
+                                image: NetworkImage(imageURL),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ],
+
+                        // actions
+                        const SizedBox(height: 8),
+                        PostActions(
+                          key: ValueKey(thisPostId),
+                          postId: thisPostId,
+                          isResolved: isResolved,
                         ),
                       ],
                     ),
-
-                    // description
-                    if ((data['description'] as String?)?.isNotEmpty ?? false) ...[
-                      const SizedBox(height: 8),
-                      Text(data['description'] as String),
-                    ],
-
-                    // image
-                    if ((data['imageURL'] as String?)?.isNotEmpty ?? false) ...[
-                      const SizedBox(height: 8),
-                      Container(
-                        height: 300,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          image: DecorationImage(
-                            image: NetworkImage(data['imageURL'] as String),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                    ],
-
-                    // actions
-                    const SizedBox(height: 8),
-                    PostActions(
-                      key: ValueKey(thisPostId),
-                      postId: thisPostId,
-                      isResolved: data['isResolved'] as bool? ?? false,
-                    ),
-                  ],
-                ),
-              ),
+                  ),
+                );
+              },
             );
           },
         );
@@ -146,3 +163,4 @@ class UserPosts extends StatelessWidget {
     );
   }
 }
+

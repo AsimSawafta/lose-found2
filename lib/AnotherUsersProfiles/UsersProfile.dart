@@ -61,65 +61,67 @@ class _UsersProfileState extends State<UsersProfile> {
     return Scaffold(
       backgroundColor: AppColors.silk,
       body: ListView(
-        padding: EdgeInsets.zero,
         children: [
-          // ----- HEADER -----
-          Container(
-            padding: const EdgeInsets.all(16),
-            color: AppColors.silk,
-            child: Row(
-              children: [
-                CircleAvatar(
-                  radius: 40,
-                  backgroundImage: avatarUrl != null
-                      ? NetworkImage(avatarUrl!)
-                      : null,
-                ),
-                const SizedBox(width: 16),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      username ?? '',
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.darkRed,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      bio ?? 'no bio',
-                      style: const TextStyle(color: AppColors.indianRed),
-                    ),
-                    const SizedBox(height: 4),
-                    if (joined != null)
+          Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(16),
+              color: AppColors.silk,
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    radius: 40,
+                    backgroundImage: avatarUrl != null
+                        ? NetworkImage(avatarUrl!)
+                        : null,
+                  ),
+                  const SizedBox(width: 16),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
                       Text(
-                        'Joined: ${joined!.toLocal().toShortDateString()}',
+                        username ?? '',
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.darkRed,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        bio ?? 'no bio',
                         style: const TextStyle(color: AppColors.indianRed),
                       ),
-                  ],
-                ),
-              ],
-            ),
-          ),
+                      const SizedBox(height: 4),
+                      if (joined != null)
+                        Text(
 
-          // ----- POSTS LIST -----
-          // UserPosts uses shrinkWrap and NeverScrollable, so it coexists inside ListView
-          UserPosts(
-            key: ValueKey(widget.uid),
-            postId: widget.uid,
-          ),
-        ],
+                          'Joined: ${formatShortDate(joined!.toLocal())}',
+                          style: const TextStyle(color: AppColors.indianRed),
+                        ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+
+          ],
+        ),
+          Divider(color: Color(0xFFA58570)),
+           UserPosts(
+                key: ValueKey(widget.uid),
+                uid: widget.uid,
+              ),
+            ]
       ),
     );
   }
 }
 
-extension on DateTime {
-  String toShortDateString() {
-    final m = month.toString().padLeft(2, '0');
-    final d = day.toString().padLeft(2, '0');
-    return '$year-$m-$d';
-  }
+
+String formatShortDate(DateTime date) {
+  final m = date.month.toString().padLeft(2, '0');
+  final d = date.day.toString().padLeft(2, '0');
+  return '${date.year}-$m-$d';
 }
+//'Joined: ${formatShortDate(joined!.toLocal())}',

@@ -1,6 +1,5 @@
-// settings.dart
+
 import 'package:flutter/material.dart';
-import 'package:lose_found/Profile/edit_profile.dart';
 
 class settings extends StatefulWidget {
   const settings({Key? key}) : super(key: key);
@@ -65,7 +64,9 @@ class _settingsState extends State<settings> {
           _buildSettingTile(
             icon: Icons.bookmark_border_outlined,
             title: 'Saved Posts',
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context,'/savedPosts');
+            },
           ),
 
           const SizedBox(height: 40),

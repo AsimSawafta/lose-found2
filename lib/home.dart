@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -7,7 +8,6 @@ import 'Search.dart';
 import 'Profile/profile.dart';
 import 'settings.dart';
 import 'messages.dart';
-
 
 class AppColors {
   static const Color darkRed = Color(0xFF3D0A05);
@@ -27,7 +27,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int _currentIndex = 1; // 0=Profile, 1=Home, 2=Search, 3=Settings, 4=Messages
   String? _uid;
-  String? _username;
   String? _avatarUrl;
   bool _isLoading = true;
 
@@ -49,10 +48,9 @@ class _HomeState extends State<Home> {
         .get();
     final data = doc.data()!;
     setState(() {
-      _uid        = user.uid;
-      _username   = data['username'] as String?;
-      _avatarUrl  = data['avatarURL'] as String?;
-      _isLoading  = false;
+      _uid       = user.uid;
+      _avatarUrl = data['avatarURL'] as String?;
+      _isLoading = false;
     });
   }
 
@@ -86,7 +84,7 @@ class _HomeState extends State<Home> {
                 validator: (v) => (v == null || v.isEmpty) ? 'Required' : null,
                 style: TextStyle(color: AppColors.darkRed),
               ),
-               SizedBox(height: 12),
+              SizedBox(height: 12),
               TextFormField(
                 controller: _imageUrlCtrl,
                 decoration: InputDecoration(
@@ -125,37 +123,29 @@ class _HomeState extends State<Home> {
             onPressed: () async {
               if (!(_formKey.currentState?.validate() ?? false)) return;
               await FirebaseFirestore.instance.collection('posts').add({
-                'authorId': _uid,
-                'authorName': _username,
-                'authorAvatar': _avatarUrl,
+                // now store reference to the user document
+                'authorRef': FirebaseFirestore.instance.doc('users/$_uid'),
                 'description': _descCtrl.text.trim(),
                 'imageURL': _imageUrlCtrl.text.trim(),
                 'isResolved': false,
-                'likeCount': 0,
                 'createdAt': Timestamp.now(),
               });
 
               _descCtrl.clear();
               _imageUrlCtrl.clear();
-
               Navigator.pop(context);
-              setState(() {});
+              setState(() {}); // refresh list
 
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('Post published!')),
               );
-
             },
-            child: const Text('Publish', style: TextStyle(color: Colors.white),),
+            child: const Text('Publish', style: TextStyle(color: Colors.white)),
           ),
         ],
-
       ),
     );
   }
-
-
-
 
   @override
   void dispose() {
@@ -170,12 +160,14 @@ class _HomeState extends State<Home> {
       Profile(),
       Center(
         child: _isLoading
-            ?  CircularProgressIndicator(color: AppColors.rubyRed)
-            :  PostsList(),
+            ? CircularProgressIndicator(color: AppColors.rubyRed)
+            : PostsList(),
       ),
       Search(),
       settings(),
-      _uid != null ? Messages(currentUserId: _uid!) : Center(child: CircularProgressIndicator()),
+      _uid != null
+          ? Messages(currentUserId: _uid!)
+          : Center(child: CircularProgressIndicator()),
     ];
 
     return Scaffold(
@@ -185,22 +177,16 @@ class _HomeState extends State<Home> {
           style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
         backgroundColor: AppColors.rubyRed,
-        actions: [
-
-        ],
         centerTitle: true,
       ),
       body: pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
-        onTap: (idx) {
-          setState(() {
-            _currentIndex = idx;
-          });
-        },
+        onTap: (idx) => setState(() => _currentIndex = idx),
         selectedItemColor: AppColors.rubyRed,
         unselectedItemColor: AppColors.greyBeige,
         backgroundColor: AppColors.silk,
+        type: BottomNavigationBarType.fixed,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: 'Profile'),
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
@@ -208,7 +194,6 @@ class _HomeState extends State<Home> {
           BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
           BottomNavigationBarItem(icon: Icon(Icons.message), label: 'Messages'),
         ],
-        type: BottomNavigationBarType.fixed,
       ),
       floatingActionButton: _currentIndex == 1
           ? FloatingActionButton(

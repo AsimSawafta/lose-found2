@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -20,6 +21,8 @@ class PostActions extends StatefulWidget {
 class _PostActionsState extends State<PostActions> {
   int likeCount = 0;
   bool isLiked = false;
+  final _db = FirebaseFirestore.instance;
+  final _user = FirebaseAuth.instance.currentUser!;
 
   @override
   void initState() {
@@ -27,41 +30,34 @@ class _PostActionsState extends State<PostActions> {
     _loadPost();
   }
 
+
   void _loadPost() async {
-    final doc = await FirebaseFirestore.instance
+    final snap = await _db
         .collection('posts')
         .doc(widget.postId)
+        .collection('likes')
         .get();
-
-    final data = doc.data() ?? {};
-    final List<dynamic> likedBy = data['likedBy'] ?? [];
-
     setState(() {
-      likeCount = likedBy.length;
-      isLiked = likedBy.contains(FirebaseAuth.instance.currentUser!.uid);
+      likeCount = snap.docs.length;
+      isLiked = snap.docs.any((d) => d.id == _user.uid);
     });
   }
 
- void _toggleLike() async {
-    final uid = FirebaseAuth.instance.currentUser!.uid;
-    final postRef = FirebaseFirestore.instance
+  void _toggleLike() async {
+    final likeRef = _db
         .collection('posts')
-        .doc(widget.postId);
-//delete the id from likedBy
-    if (isLiked) {
+        .doc(widget.postId)
+        .collection('likes')
+        .doc(_user.uid);
 
-      await postRef.update({
-        'likedBy': FieldValue.arrayRemove([uid]),
-      });
+    if (isLiked) {
+      await likeRef.delete();
       setState(() {
         likeCount--;
         isLiked = false;
       });
     } else {
-      //add the id from likedBy
-      await postRef.update({
-        'likedBy': FieldValue.arrayUnion([uid]),
-      });
+      await likeRef.set({'timestamp': Timestamp.now()});
       setState(() {
         likeCount++;
         isLiked = true;
@@ -73,7 +69,6 @@ class _PostActionsState extends State<PostActions> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-
         Icon(
           widget.isResolved ? Icons.check_circle : Icons.error_outline,
           color: widget.isResolved ? Colors.green : Colors.red,
@@ -81,16 +76,15 @@ class _PostActionsState extends State<PostActions> {
         const SizedBox(width: 8),
         Text(
           widget.isResolved ? 'Founded' : 'Lose',
-          style:  TextStyle(fontWeight: FontWeight.w600),
+          style: const TextStyle(fontWeight: FontWeight.w600),
         ),
 
         const Spacer(),
 
-        //
         IconButton(
           icon: Icon(
             isLiked ? Icons.favorite : Icons.favorite_border,
-            color: isLiked ? Colors.red : Colors.black54,
+            color: isLiked ? Colors.red : Colors.black,
           ),
           onPressed: _toggleLike,
         ),
@@ -98,12 +92,11 @@ class _PostActionsState extends State<PostActions> {
 
         const SizedBox(width: 16),
 
-
         IconButton(
           icon: const Icon(Icons.mode_comment_outlined),
           onPressed: () => showCommentsSheet(context, widget.postId),
         ),
-        SavePostButton(postId: widget.postId)
+        SavePostButton(postId: widget.postId),
       ],
     );
   }
@@ -121,6 +114,7 @@ class SavePostButton extends StatefulWidget {
 class _SavePostButtonState extends State<SavePostButton> {
   bool isSaved = false;
   final user = FirebaseAuth.instance.currentUser!;
+  final _db = FirebaseFirestore.instance;
 
   @override
   void initState() {
@@ -129,7 +123,7 @@ class _SavePostButtonState extends State<SavePostButton> {
   }
 
   Future<void> _checkIfSaved() async {
-    final doc = await FirebaseFirestore.instance
+    final doc = await _db
         .collection('users')
         .doc(user.uid)
         .collection('savedPosts')
@@ -141,7 +135,7 @@ class _SavePostButtonState extends State<SavePostButton> {
   }
 
   Future<void> _toggleSave() async {
-    final savedRef = FirebaseFirestore.instance
+    final savedRef = _db
         .collection('users')
         .doc(user.uid)
         .collection('savedPosts')
@@ -151,7 +145,9 @@ class _SavePostButtonState extends State<SavePostButton> {
       await savedRef.delete();
     } else {
       await savedRef.set({
-        'postRef': FirebaseFirestore.instance.collection('posts').doc(widget.postId),
+        'postRef': FirebaseFirestore.instance
+            .collection('posts')
+            .doc(widget.postId),
         'savedAt': Timestamp.now(),
       });
     }
@@ -166,7 +162,7 @@ class _SavePostButtonState extends State<SavePostButton> {
     return IconButton(
       icon: Icon(
         isSaved ? Icons.bookmark : Icons.bookmark_border,
-        color: isSaved ? Colors.orange : Colors.grey,
+        color: isSaved ? Colors.orange : Colors.black,
       ),
       onPressed: _toggleSave,
     );

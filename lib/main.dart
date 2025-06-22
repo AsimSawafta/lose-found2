@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:lose_found/Posts/savedPosts.dart';
 import 'package:lose_found/Profile/edit_profile.dart';
 
 import 'firebase_options.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         '/signUp': (context) => SignUpPage(),
         '/home': (context) => Home(),
         '/editProfile':(context)=>EditProfileScreen(),
+        '/savedPosts':(context)=>SavedPostsScreen()
 
       },
     );

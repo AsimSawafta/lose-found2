@@ -44,22 +44,9 @@ class _LoginPageState extends State<LoginPage> {
         password: _passwordCtrl.text,
       );
 
-
-      // 2) Print Auth user info (عشان نتأكد)
-      final user = cred.user!;
-
-
-
-      final doc = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(user.uid)
-          .get();
-
-      // 4) Navigate to Home (بروح على صفحة الهوم عن طريق الراوتر)
       Navigator.pushReplacementNamed(context, '/home');
     }
     on FirebaseAuthException catch (e) {
-      print('Sign-in error: ${e.code} – ${e.message}');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Sign-in failed: ${e.message}'),
@@ -203,13 +190,13 @@ class _LoginPageState extends State<LoginPage> {
                           borderSide: BorderSide(color: AppColors.rubyRed, width: 2),
                         ),
                       ),
-                      validator: (val) => (val == null || val.length < 6) ? 'Min 6 characters' : null,
+                      validator: (val) => (val == null || val.isEmpty ) ? 'Password is required' : null,
                     ),
                   ],
                 ),
               ),
 
-              const SizedBox(height: 40),
+               SizedBox(height: 40),
 
 
               SizedBox(
@@ -239,7 +226,7 @@ class _LoginPageState extends State<LoginPage> {
 
               const SizedBox(height: 28),
 
-              // رابط التسجيل
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -263,7 +250,7 @@ class _LoginPageState extends State<LoginPage> {
                 ],
               ),
 
-              const SizedBox(height: 40),
+               SizedBox(height: 40),
             ],
           ),
         ),

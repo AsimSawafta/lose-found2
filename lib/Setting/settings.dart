@@ -1,5 +1,7 @@
 
 import 'package:flutter/material.dart';
+import 'change_pswd.dart';
+import 'contact-support.dart';
 
 class settings extends StatefulWidget {
   const settings({Key? key}) : super(key: key);
@@ -15,9 +17,8 @@ class _settingsState extends State<settings> {
   static const Color silk = Color(0xFFDAC1B1);
   static const Color indianRed = Color(0xFFAC746C);
 
-  bool pushNotifications = true;
-  bool emailNotifications = false;
 
+ //ليه async
   void _handleLogout() async {
     // sign-out logic here
     Navigator.pushReplacementNamed(context, '/signIn');
@@ -58,7 +59,9 @@ class _settingsState extends State<settings> {
             _buildSettingTile(
             icon: Icons.lock_outline,
             title: 'Change Password',
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, '/changePassword');
+            },
           ),
 
           _buildSettingTile(
@@ -86,17 +89,14 @@ class _settingsState extends State<settings> {
               ],
             ),
           ),
-           SizedBox(height: 15),
-          _buildSettingTile(
-            icon: Icons.language_outlined,
-            title: 'Language',
-            onTap: () {},
-          ),
+
 
           _buildSettingTile(
             icon: Icons.help_outline,
             title: 'Help & Support',
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, '/helpSupport');
+            },
           ),
 
           const SizedBox(height: 60),

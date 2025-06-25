@@ -39,10 +39,11 @@ class _PostActionsState extends State<PostActions> {
         .get();
     setState(() {
       likeCount = snap.docs.length;
+      //is liked تاكد هل المستخدم الحالي عامل لايك على هاد البوست او لأ
       isLiked = snap.docs.any((d) => d.id == _user.uid);
     });
   }
-
+//هاد بفحص ازا المستخدم عمل لايك على اشي ازا عمل بظهر انه عمل عند عدد الكاونت ازا ما عمل ما بظهر
   void _toggleLike() async {
     final likeRef = _db
         .collection('posts')
@@ -57,6 +58,8 @@ class _PostActionsState extends State<PostActions> {
         isLiked = false;
       });
     } else {
+      //Timestamp هو نوع بيانات خاص بـ Firebase Firestore، يُستخدم لتخزين التواريخ والأوقات بدقة
+      //,nowانه بتنشا وقت زمني حالي مثلا بظهر للمستخدم لايك قبل 3 دقايق
       await likeRef.set({'timestamp': Timestamp.now()});
       setState(() {
         likeCount++;

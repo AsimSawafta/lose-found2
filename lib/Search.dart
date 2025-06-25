@@ -6,6 +6,7 @@ class Search extends StatelessWidget {
   const Search({super.key});
   @override
   Widget build(BuildContext context) {
+    //what navigator do ?
     return Navigator(
       key: GlobalKey<NavigatorState>(),
       onGenerateRoute: (settings) {
@@ -36,7 +37,9 @@ class _SearchListState extends State<_SearchList> {
     super.initState();
     _loadUsers();
   }
-
+//why async
+  //future يعني عمليه بدها وقت لحتى يكون في اتصال بالانترنت وتتصل بالداتابيس وفي كمله await
+  //
   Future<void> _loadUsers() async {
 
       final snapshot = await FirebaseFirestore.instance

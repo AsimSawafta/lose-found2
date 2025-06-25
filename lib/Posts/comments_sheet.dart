@@ -103,12 +103,15 @@ class _CommentsSheetState extends State<CommentsSheet> {
                   final commnet = _comments[i];
                   final ts = commnet['createdAt'] as DateTime;
                   final authorRef = commnet['authorRef'] as DocumentReference;
+                  //الفيوتشر بلدر بدي ابني واجهه بناء على عمليه متزامنه
                   return FutureBuilder(
                     future: authorRef.get(),
                     builder: (_, snap) {
+                      //لما يبدا تحميل البيانات ازا البيانات ما وصلو
                       if (!snap.hasData) {
                         return ListTile(
                           leading: CircleAvatar(child: Icon(Icons.person)),
+                          //...لا نعرف اسم المستخدم لانه البيانات لسا مو واصله من الفييربيس
                           title: Text('… • ${_formatTimeAgo(ts)}'),
                           subtitle: Text(commnet['text'] as String),
                         );

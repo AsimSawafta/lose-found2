@@ -17,6 +17,8 @@ class UserPostsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //!يعني متاكد انه القيمه الحاليه مش null
+    //userRef يمثل مرجعًا (Pointer) إلى بيانات المستخدم الحالي المخزنة في Firestore ضمن مجموعة users
     final user = FirebaseAuth.instance.currentUser!;
     final userRef = FirebaseFirestore.instance.collection('users').doc(user.uid);
 
@@ -25,17 +27,24 @@ class UserPostsWidget extends StatelessWidget {
           .collection('posts')
           .where('authorRef', isEqualTo: userRef).snapshots(),
       builder: (context, snapshot) {
+        //كانه قويري وين الuthorRef نفسه UserRef
+        //ي حاله ما في  كةنينشكن بظهر دائره التحميل
         if (snapshot.connectionState == ConnectionState.waiting) {
           return  Center(child: CircularProgressIndicator());
         }
+        //في حاله ما قي بوست بظهر نو بوست يت
         if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
           return  Center(child: Text('No posts yet.'));
         }
-
+        //ازا ولا حاله
+        //لسناب شوت متغير فيه داتا من الفييربيس
+        //ازا ولا شرط ببني lisview طولها نفس طول الدوكس
         final docs = snapshot.data!.docs;
         return ListView.builder(
           shrinkWrap: true,
           physics:  NeverScrollableScrollPhysics(),
+          //حتى ما تاخذ القيمه ارتفاع اكبر من محتواها
+          //
           itemCount: docs.length,
           itemBuilder: (context, i) {
             final data = docs[i].data()! as Map<String, dynamic>;
@@ -45,10 +54,10 @@ class UserPostsWidget extends StatelessWidget {
             final description = data['description'] as String;
             final isResolved = data['isResolved'] as bool;
             final authorRef = data['authorRef'] as DocumentReference;
-
+             //برجع كارد في مواصفات التالنيه
             return Card(
               margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
-              elevation: 2,
+              elevation: 2,//يعني الظل
               child: Padding(
                 padding: const EdgeInsets.all(12),
                 child: Column(

@@ -20,6 +20,8 @@ class EditProfileScreenState extends State<EditProfileScreen> {
     super.initState();
     _loadUserData();
   }
+  static const Color indianRed = Color(0xFFAC746C);
+  static const Color rubyRed = Color(0xFF7F1F0E);
 
   Future<void> _loadUserData() async {
     final user = FirebaseAuth.instance.currentUser!;
@@ -157,19 +159,26 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                 contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               ),
             ),
-            const SizedBox(height: 32),
+            const SizedBox(height: 60),
+            Center(child:
             ElevatedButton(
               onPressed: _save,
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF7F1F0E),
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                backgroundColor: indianRed,
+                padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(40),
+                  side: BorderSide(color: rubyRed.withOpacity(0.8), width: 2),
+                ),
+                elevation: 8,
+                shadowColor: indianRed,
               ),
               child: const Text(
-                'Save Changes',
-                style: TextStyle(color: Colors.white, fontSize: 16),
+                'Save Change',
+                style: TextStyle(color: Colors.white, fontSize: 16,fontWeight: FontWeight.w900,),
               ),
             ),
+            )
           ],
         ),
       ),

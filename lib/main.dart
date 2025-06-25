@@ -8,6 +8,8 @@ import 'home.dart';
 import 'registration/signInPage.dart';
 import 'registration/signUpPage.dart';
 import 'AnotherUsersProfiles/UsersProfile.dart';
+import 'Setting/change_pswd.dart';
+import 'Setting/help_n_support.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,7 +31,9 @@ class MyApp extends StatelessWidget {
         '/signUp': (context) => SignUpPage(),
         '/home': (context) => Home(),
         '/editProfile':(context)=>EditProfileScreen(),
-        '/savedPosts':(context)=>SavedPostsScreen()
+        '/savedPosts':(context)=>SavedPostsScreen(),
+        '/changePassword': (context) =>  ChangePassword(),
+        '/helpSupport': (context) =>  HelpnSupport(),
 
       },
     );

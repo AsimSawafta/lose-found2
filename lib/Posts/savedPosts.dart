@@ -46,9 +46,9 @@ class SavedPostsScreen extends StatelessWidget {
               return FutureBuilder(
                 future: ref.get(),
                 builder: (context, postSnap) {
-                  if (postSnap.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
+                  //if (postSnap.connectionState == ConnectionState.waiting) {
+                    //return const Center(child: CircularProgressIndicator());
+                  //}
                   if (!postSnap.hasData || !postSnap.data!.exists) {
                     return const SizedBox();
                   }

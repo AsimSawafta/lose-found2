@@ -114,7 +114,7 @@ class _ProfileScreenState extends State<Profile> {
               ],
             ),
           ),
-
+         //برسم خط فاصل بين العناصر
           Divider(color: AppColors.greyBeige),
 
           // ----- POSTS -----

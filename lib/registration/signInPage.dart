@@ -28,6 +28,7 @@ class _LoginPageState extends State<LoginPage> {
   bool _loading = false;
 
   @override
+  //لما المستخدم بطلع من صفحه ااويدجت الفلتر بعمل تنظيف
   void dispose() {
     _emailCtrl.dispose();
     _passwordCtrl.dispose();

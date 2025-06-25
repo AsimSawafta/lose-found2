@@ -40,7 +40,44 @@ class Messages extends StatelessWidget {
         'imageURL': 'https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?w=100',
         'lastActive': 'Yesterday',
       },
+      {
+        'name': 'Asim',
+        'lastMessage': 'Let’s meet after class.',
+        'imageURL': 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=100',
+        'lastActive': '5 min ago',
+      },
+      {
+        'name': 'Noor',
+        'lastMessage': 'Sure, I will bring it tomorrow.',
+        'imageURL': 'https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=100',
+        'lastActive': '30 min ago',
+      },
+      {
+        'name': 'Zozo',
+        'lastMessage': 'Haha, that was funny!',
+        'imageURL': 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100',
+        'lastActive': 'Today',
+      },
+      {
+        'name': 'Yahya',
+        'lastMessage': 'Don’t forget the meeting.',
+        'imageURL': 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=100',
+        'lastActive': '2 hrs ago',
+      },
+      {
+        'name': 'Lama',
+        'lastMessage': 'Can you send me the file?',
+        'imageURL': 'https://images.unsplash.com/photo-1544005313-6b6b37cd9c5b?w=100',
+        'lastActive': '1 hr ago',
+      },
+      {
+        'name': 'Tariq',
+        'lastMessage': 'Let’s catch up soon.',
+        'imageURL': 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?w=100',
+        'lastActive': 'Yesterday',
+      },
     ];
+
 
     final List<Map<String, dynamic>> recentChats = [
       {
@@ -62,6 +99,26 @@ class Messages extends StatelessWidget {
       {
         'name': 'Rana',
         'imageURL': 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=80',
+      },
+      {
+        'name': 'Asim',
+        'imageURL': 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=80',
+      },
+      {
+        'name': 'Noor',
+        'imageURL': 'https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=80',
+      },
+      {
+        'name': 'Zozo',
+        'imageURL': 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80',
+      },
+      {
+        'name': 'Yahya',
+        'imageURL': 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=80',
+      },
+      {
+        'name': 'Tariq',
+        'imageURL': 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?w=80',
       },
     ];
 

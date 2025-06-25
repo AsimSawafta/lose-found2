@@ -6,7 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'Posts/posts.dart';
 import 'Search.dart';
 import 'Profile/profile.dart';
-import 'settings.dart';
+import 'Setting/settings.dart';
 import 'messages.dart';
 
 class AppColors {
@@ -128,6 +128,7 @@ class _HomeState extends State<Home> {
                 'description': _descCtrl.text.trim(),
                 'imageURL': _imageUrlCtrl.text.trim(),
                 'isResolved': false,
+                // وظيفه الTimestamp
                 'createdAt': Timestamp.now(),
               });
 

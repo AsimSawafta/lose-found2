@@ -17,20 +17,20 @@ class ContactSupport extends StatelessWidget {
       backgroundColor: silk.withOpacity(0.98), // خلفية الصفحة بلون حريري شبه شفاف
       appBar: AppBar(
         backgroundColor: rubyRed, // لون التطبيق في الأعلى
-        elevation: 0, // بدون ظل
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: darkRed), // زر الرجوع
-          onPressed: () => Navigator.pop(context), // يرجع للصفحة السابقة
+          icon:  Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
         ),
-        title: const Text(
+        iconTheme:  IconThemeData(color: Colors.white),
+        title:  Text(
           'Lost & Found Support',
           style: TextStyle(color: silk, fontWeight: FontWeight.bold), // العنوان بلون حريري
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(24.0), // مسافة حول المحتوى
+        padding:  EdgeInsets.all(24.0), // مسافة حول المحتوى
         child: Container(
-          padding: const EdgeInsets.all(20), // مسافة داخل الكونتينر
+          padding:  EdgeInsets.all(20), // مسافة داخل الكونتينر
           decoration: BoxDecoration(
             color: Colors.white.withOpacity(0.97), // لون خلفية الكرت الأبيض
             borderRadius: BorderRadius.circular(16), // الزوايا مدوّرة
@@ -38,7 +38,7 @@ class ContactSupport extends StatelessWidget {
               BoxShadow(
                 color: indianRed.withOpacity(0.1), // ظل خفيف بلون أحمر هندي
                 blurRadius: 6,
-                offset: const Offset(0, 3), // اتجاه الظل
+                offset:  Offset(0, 3), // اتجاه الظل
               ),
             ],
           ),
@@ -46,7 +46,7 @@ class ContactSupport extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start, // المحاذاة من اليسار
             children: [
               // عنوان مساعد
-              const Text(
+               Text(
                 "Need help with Lost & Found?",
                 style: TextStyle(
                   fontSize: 18,
@@ -54,18 +54,18 @@ class ContactSupport extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 8), // فراغ صغير
+               SizedBox(height: 8), // فراغ صغير
 
               // شرح أو تعليمات
-              const Text(
+               Text(
                 "If you have any issues, questions, or need assistance, please contact our university support team:",
                 style: TextStyle(fontSize: 15, color: Colors.black87),
               ),
-              const SizedBox(height: 24), // فراغ كبير شوي
+               SizedBox(height: 24), // فراغ كبير شوي
 
               // رقم الهاتف
               Row(
-                children: const [
+                children:  [
                   Icon(Icons.phone, color: darkRed), // أيقونة الهاتف
                   SizedBox(width: 12),
                   Text(
@@ -74,11 +74,11 @@ class ContactSupport extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 16), // فراغ بين الصفوف
+               SizedBox(height: 16), // فراغ بين الصفوف
 
               // البريد الإلكتروني
               Row(
-                children: const [
+                children:  [
                   Icon(Icons.email_outlined, color: darkRed),
                   SizedBox(width: 12),
                   Text(
@@ -87,11 +87,11 @@ class ContactSupport extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 16),
+               SizedBox(height: 16),
 
               // أوقات الدوام
               Row(
-                children: const [
+                children:  [
                   Icon(Icons.access_time, color: darkRed),
                   SizedBox(width: 12),
                   Text(
@@ -101,13 +101,13 @@ class ContactSupport extends StatelessWidget {
                 ],
               ),
 
-              const SizedBox(height: 28),
-              const Divider(thickness: 1, color: greyBeige), // خط فاصل
-              const SizedBox(height: 12),
+               SizedBox(height: 28),
+               Divider(thickness: 1, color: greyBeige), // خط فاصل
+               SizedBox(height: 12),
 
               // موقع المكتب
               Row(
-                children: const [
+                children:  [
                   Icon(Icons.location_on_outlined, color: darkRed),
                   SizedBox(width: 12),
                   Flexible(

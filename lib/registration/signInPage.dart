@@ -40,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
 
     try {
       // 1) Sign in with Firebase Auth (اذا كان المستخدم مسجل من قبل بفوت)
-      final cred = await FirebaseAuth.instance.signInWithEmailAndPassword(
+       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: _emailCtrl.text.trim(),
         password: _passwordCtrl.text,
       );
@@ -50,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
     on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Sign-in failed: ${e.message}'),
+          content: Text('Sign-in failed: Check your Email or Password'),
           backgroundColor: AppColors.rubyRed,
         ),
       );
@@ -65,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
       backgroundColor: AppColors.background,
       body: Center(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 28),
+          padding:  EdgeInsets.symmetric(horizontal: 28),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -79,17 +79,17 @@ class _LoginPageState extends State<LoginPage> {
                     BoxShadow(
                       color: AppColors.rubyRed.withOpacity(0.3),
                       blurRadius: 18,
-                      offset: const Offset(0, 8),
+                      offset:  Offset(0, 8),
                     ),
                   ],
-                  image: const DecorationImage(
+                  image:  DecorationImage(
                     image: AssetImage('assets/img.png'),
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
 
-              const SizedBox(height: 28),
+               SizedBox(height: 28),
 
 
               Text(
@@ -102,14 +102,14 @@ class _LoginPageState extends State<LoginPage> {
                   shadows: [
                     Shadow(
                       color: AppColors.rubyRed.withOpacity(0.5),
-                      offset: const Offset(0, 2),
+                      offset:  Offset(0, 2),
                       blurRadius: 8,
                     ),
                   ],
                 ),
               ),
 
-              const SizedBox(height: 10),
+               SizedBox(height: 10),
 
 
               Text(
@@ -122,7 +122,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
 
-              const SizedBox(height: 40),
+              SizedBox(height: 40),
 
 
               Form(
@@ -140,7 +140,7 @@ class _LoginPageState extends State<LoginPage> {
                         hintText: 'Email',
                         hintStyle: TextStyle(color: AppColors.greyBeige, fontWeight: FontWeight.w500),
                         prefixIcon: Icon(Icons.email_outlined, color: AppColors.rubyRed),
-                        contentPadding: const EdgeInsets.symmetric(vertical: 18, horizontal: 20),
+                        contentPadding:  EdgeInsets.symmetric(vertical: 18, horizontal: 20),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(radius),
                           borderSide: BorderSide.none,
@@ -157,7 +157,7 @@ class _LoginPageState extends State<LoginPage> {
                       validator: (val) => (val == null || val.isEmpty) ? 'Email is required' : null,
                     ),
 
-                    const SizedBox(height: 24),
+                     SizedBox(height: 24),
 
 
                     TextFormField(
@@ -177,7 +177,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
                         ),
-                        contentPadding: const EdgeInsets.symmetric(vertical: 18, horizontal: 20),
+                        contentPadding: EdgeInsets.symmetric(vertical: 18, horizontal: 20),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(radius),
                           borderSide: BorderSide.none,
@@ -212,8 +212,8 @@ class _LoginPageState extends State<LoginPage> {
                     shadowColor: AppColors.rubyRed.withOpacity(0.6),
                   ),
                   child: _loading
-                      ? const CircularProgressIndicator(color: Colors.white)
-                      : const Text(
+                      ?  CircularProgressIndicator(color: Colors.white)
+                      :  Text(
                     'Sign In',
                     style: TextStyle(
                       fontSize: 20,
@@ -225,7 +225,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
 
-              const SizedBox(height: 28),
+               SizedBox(height: 28),
 
 
               Row(

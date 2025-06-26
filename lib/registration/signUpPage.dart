@@ -74,10 +74,10 @@ class _SignUpPageState extends State<SignUpPage> {
       if (!mounted) return;
 
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Registration Successfully')),
+         SnackBar(content: Text('Registration Successfully')),
       );
 
-      // await Future.delayed(const Duration(milliseconds: 500));
+
       Navigator.pushNamed(context, '/signIn');
     } on FirebaseAuthException catch (e) {
       if (!mounted) return;
@@ -112,7 +112,7 @@ class _SignUpPageState extends State<SignUpPage> {
       backgroundColor: AppColors.background,
       body: Center(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 28),
+          padding:  EdgeInsets.symmetric(horizontal: 28),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -125,16 +125,16 @@ class _SignUpPageState extends State<SignUpPage> {
                     BoxShadow(
                       color: AppColors.rubyRed.withOpacity(0.3),
                       blurRadius: 18,
-                      offset: const Offset(0, 8),
+                      offset:  Offset(0, 8),
                     ),
                   ],
-                  image: const DecorationImage(
+                  image:  DecorationImage(
                     image: AssetImage('assets/img.png'),
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
-              const SizedBox(height: 28),
+               SizedBox(height: 28),
               Text(
                 'Create Account',
                 style: TextStyle(
@@ -145,13 +145,13 @@ class _SignUpPageState extends State<SignUpPage> {
                   shadows: [
                     Shadow(
                       color: AppColors.rubyRed.withOpacity(0.5),
-                      offset: const Offset(0, 2),
+                      offset:  Offset(0, 2),
                       blurRadius: 8,
                     ),
                   ],
                 ),
               ),
-              const SizedBox(height: 10),
+               SizedBox(height: 10),
               Text(
                 'Join us now!',
                 style: TextStyle(
@@ -161,7 +161,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   letterSpacing: 1.2,
                 ),
               ),
-              const SizedBox(height: 40),
+               SizedBox(height: 40),
               Form(
                 key: _formKey,
                 child: Column(
@@ -176,7 +176,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       validator: (val) =>
                       (val == null || val.isEmpty) ? 'Email is required' : null,
                     ),
-                    const SizedBox(height: 24),
+                     SizedBox(height: 24),
                     TextFormField(
                       controller: _usernameCtrl,
                       style: TextStyle(
@@ -187,7 +187,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       validator: (val) =>
                       (val == null || val.isEmpty) ? 'Username is required' : null,
                     ),
-                    const SizedBox(height: 24),
+                     SizedBox(height: 24),
                     TextFormField(
                       controller: _passwordCtrl,
                       obscureText: _obscurePassword,
@@ -206,7 +206,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           ? 'Min 6 characters'
                           : null,
                     ),
-                    const SizedBox(height: 24),
+                     SizedBox(height: 24),
                     TextFormField(
                       controller: _confirmPasswordCtrl,
                       obscureText: _obscureConfirm,
@@ -228,7 +228,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   ],
                 ),
               ),
-              const SizedBox(height: 40),
+               SizedBox(height: 40),
               SizedBox(
                 width: double.infinity,
                 height: 56,
@@ -243,8 +243,8 @@ class _SignUpPageState extends State<SignUpPage> {
                     shadowColor: AppColors.rubyRed.withOpacity(0.6),
                   ),
                   child: _loading
-                      ? const CircularProgressIndicator(color: Colors.white)
-                      : const Text(
+                      ?  CircularProgressIndicator(color: Colors.white)
+                      :  Text(
                     'Sign Up',
                     style: TextStyle(
                       fontSize: 20,
@@ -255,7 +255,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ),
               ),
-              const SizedBox(height: 28),
+               SizedBox(height: 28),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -280,7 +280,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   )
                 ],
               ),
-              const SizedBox(height: 40),
+               SizedBox(height: 40),
             ],
           ),
         ),
@@ -310,7 +310,7 @@ class _SignUpPageState extends State<SignUpPage> {
       )
           : null,
       contentPadding:
-      const EdgeInsets.symmetric(vertical: 18, horizontal: 20),
+       EdgeInsets.symmetric(vertical: 18, horizontal: 20),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(radius),
         borderSide: BorderSide.none,

@@ -128,7 +128,7 @@ class Messages extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
+           Padding(
             padding: EdgeInsets.only(left: 16, top: 12, bottom: 8),
             child: Text(
               "Recent Chats",
@@ -142,10 +142,10 @@ class Messages extends StatelessWidget {
           SizedBox(
             height: 90,
             child: ListView.separated(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding:  EdgeInsets.symmetric(horizontal: 16),
               scrollDirection: Axis.horizontal,
               itemCount: recentChats.length,
-              separatorBuilder: (_, __) => const SizedBox(width: 16),
+              separatorBuilder: (_, __) =>  SizedBox(width: 16),
               itemBuilder: (context, index) {
                 final user = recentChats[index];
                 return GestureDetector(
@@ -160,12 +160,12 @@ class Messages extends StatelessWidget {
                         radius: 30,
                         backgroundImage: NetworkImage(user['imageURL']),
                       ),
-                      const SizedBox(height: 6),
+                       SizedBox(height: 6),
                       SizedBox(
                         width: 60,
                         child: Text(
                           user['name'],
-                          style: const TextStyle(
+                          style:  TextStyle(
                             fontSize: 14,
                             color: AppColors.indianRed,
                             fontWeight: FontWeight.w600,
@@ -180,8 +180,8 @@ class Messages extends StatelessWidget {
               },
             ),
           ),
-          const SizedBox(height: 12),
-          const Padding(
+           SizedBox(height: 12),
+           Padding(
             padding: EdgeInsets.only(left: 16, bottom: 8),
             child: Text(
               "All Chats",
@@ -194,9 +194,9 @@ class Messages extends StatelessWidget {
           ),
           Expanded(
             child: ListView.separated(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding:  EdgeInsets.symmetric(horizontal: 16),
               itemCount: chatUsers.length,
-              separatorBuilder: (_, __) => const SizedBox(height: 12),
+              separatorBuilder: (_, __) =>  SizedBox(height: 12),
               itemBuilder: (context, index) {
                 final user = chatUsers[index];
                 return Container(
@@ -206,19 +206,19 @@ class Messages extends StatelessWidget {
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withOpacity(0.05),
-                        offset: const Offset(0, 2),
+                        offset:  Offset(0, 2),
                         blurRadius: 5,
                       ),
                     ],
                   ),
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  padding:  EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                   child: Row(
                     children: [
                       CircleAvatar(
                         radius: 30,
                         backgroundImage: NetworkImage(user['imageURL']),
                       ),
-                      const SizedBox(width: 12),
+                       SizedBox(width: 12),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -228,7 +228,7 @@ class Messages extends StatelessWidget {
                                 Expanded(
                                   child: Text(
                                     user['name'],
-                                    style: const TextStyle(
+                                    style:  TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 18,
                                       color: AppColors.rubyRed,
@@ -236,22 +236,22 @@ class Messages extends StatelessWidget {
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
-                                const SizedBox(width: 8),
+                                 SizedBox(width: 8),
                                 Text(
                                   user['lastActive'],
-                                  style: const TextStyle(
+                                  style:  TextStyle(
                                     color: AppColors.indianRed,
                                     fontSize: 12,
                                   ),
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 6),
+                             SizedBox(height: 6),
                             Text(
                               user['lastMessage'],
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
+                              style:  TextStyle(
                                 color: AppColors.indianRed,
                                 fontSize: 14,
                               ),

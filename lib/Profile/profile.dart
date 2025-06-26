@@ -29,6 +29,7 @@ class _ProfileScreenState extends State<Profile> {
     _loadProfile();
   }
 
+
   Future<void> _loadProfile() async {
     final user = FirebaseAuth.instance.currentUser!;
     final doc  = await FirebaseFirestore.instance
@@ -52,7 +53,7 @@ class _ProfileScreenState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     if (isLoading) {
-      return const Scaffold(
+      return  Scaffold(
         body: Center(child: CircularProgressIndicator()),
       );
     }
@@ -62,16 +63,19 @@ class _ProfileScreenState extends State<Profile> {
       body: ListView(
         children: [
 
+
+
           Container(
-            padding: const EdgeInsets.all(16),
+            padding:  EdgeInsets.all(16),
             color: AppColors.silk,
+
             child: Row(
               children: [
                 CircleAvatar(
                   radius: 40,
                   backgroundImage: NetworkImage(avatarUrl!),
                 ),
-                const SizedBox(width: 16),
+                 SizedBox(width: 16),
 
 
                 Column(
@@ -79,27 +83,27 @@ class _ProfileScreenState extends State<Profile> {
                   children: [
                     Text(
                       username!,
-                      style: const TextStyle(
+                      style:  TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: AppColors.darkRed,
                       ),
                     ),
-                    const SizedBox(height: 4),
+                     SizedBox(height: 4),
                     Text(
                       bio ?? '',
-                      style: const TextStyle(color: AppColors.greyBeige),
+                      style:  TextStyle(color:Colors.black ,fontSize: 15 ),//AppColors.greyBeige
                     ),
-                    const SizedBox(height: 4),
+                     SizedBox(height: 4),
                     Text(
                       'Joined: ${formatShortDate(joined!.toLocal())}',
-                      style: const TextStyle(color: AppColors.indianRed),
+                      style:  TextStyle(color: AppColors.indianRed),
                     ),
                   ],
                 ),
-                const Spacer(),
+                 Spacer(),
                 IconButton(
-                    icon: const Icon(Icons.edit, color: AppColors.darkRed),
+                    icon:  Icon(Icons.edit, color: AppColors.darkRed),
                     // onPressed: _onEdit,
                     onPressed: ()async {
                       await Navigator.pushNamed(context, '/editProfile');
@@ -114,8 +118,8 @@ class _ProfileScreenState extends State<Profile> {
               ],
             ),
           ),
-         //برسم خط فاصل بين العناصر
-          Divider(color: AppColors.greyBeige),
+        // برسم خط فاصل بين العناصر
+         Divider(color: AppColors.greyBeige,),
 
           // ----- POSTS -----
           UserPostsWidget(),

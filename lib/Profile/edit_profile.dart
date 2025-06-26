@@ -77,20 +77,20 @@ class EditProfileScreenState extends State<EditProfileScreen> {
     );
 
     return Scaffold(
-      backgroundColor: const Color(0xFFDAC1B1),
+      backgroundColor:  Color(0xFFDAC1B1),
       appBar: AppBar(
-        title: const Text('Edit Profile', style: TextStyle(color: Colors.white)),
-        backgroundColor: const Color(0xFF7F1F0E),
-        iconTheme: const IconThemeData(color: Colors.white),
+        title:  Text('Edit Profile', style: TextStyle(color: Colors.white)),
+        backgroundColor:  Color(0xFF7F1F0E),
+        iconTheme:  IconThemeData(color: Colors.white),
       ),
       body: _loading
-          ? const Center(child: CircularProgressIndicator())
+          ?  Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
-        padding: const EdgeInsets.all(24),
+        padding:  EdgeInsets.all(24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Text(
+             Text(
               'Name',
               style: TextStyle(
                 color: Color(0xFF7F1F0E),
@@ -99,21 +99,21 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                 letterSpacing: 0.5,
               ),
             ),
-            const SizedBox(height: 8),
+             SizedBox(height: 8),
             TextField(
               controller: _nameCtrl,
-              style: const TextStyle(color: Colors.black),
+              style:  TextStyle(color: Colors.black),
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Colors.white,
                 border: border,
                 enabledBorder: border,
                 focusedBorder: border,
-                contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                contentPadding:  EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               ),
             ),
-            const SizedBox(height: 16),
-            const Text(
+             SizedBox(height: 16),
+             Text(
               'Bio',
               style: TextStyle(
                 color: Color(0xFF7F1F0E),
@@ -122,10 +122,10 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                 letterSpacing: 0.5,
               ),
             ),
-            const SizedBox(height: 8),
+             SizedBox(height: 8),
             TextField(
               controller: _bioCtrl,
-              style: const TextStyle(color: Colors.black),
+              style:  TextStyle(color: Colors.black),
               maxLines: 3,
               decoration: InputDecoration(
                 filled: true,
@@ -133,11 +133,11 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                 border: border,
                 enabledBorder: border,
                 focusedBorder: border,
-                contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                contentPadding:  EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               ),
             ),
-            const SizedBox(height: 16),
-            const Text(
+             SizedBox(height: 16),
+             Text(
               'Avatar URL',
               style: TextStyle(
                 color: Color(0xFF7F1F0E),
@@ -146,26 +146,26 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                 letterSpacing: 0.5,
               ),
             ),
-            const SizedBox(height: 8),
+             SizedBox(height: 8),
             TextField(
               controller: _imgCtrl,
-              style: const TextStyle(color: Colors.black),
+              style:  TextStyle(color: Colors.black),
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Colors.white,
                 border: border,
                 enabledBorder: border,
                 focusedBorder: border,
-                contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                contentPadding:  EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               ),
             ),
-            const SizedBox(height: 60),
+             SizedBox(height: 60),
             Center(child:
             ElevatedButton(
               onPressed: _save,
               style: ElevatedButton.styleFrom(
                 backgroundColor: indianRed,
-                padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 16),
+                padding:  EdgeInsets.symmetric(horizontal: 100, vertical: 16),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(40),
                   side: BorderSide(color: rubyRed.withOpacity(0.8), width: 2),
@@ -173,7 +173,7 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                 elevation: 8,
                 shadowColor: indianRed,
               ),
-              child: const Text(
+              child:  Text(
                 'Save Change',
                 style: TextStyle(color: Colors.white, fontSize: 16,fontWeight: FontWeight.w900,),
               ),

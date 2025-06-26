@@ -11,7 +11,7 @@ class Search extends StatelessWidget {
       key: GlobalKey<NavigatorState>(),
       onGenerateRoute: (settings) {
         return MaterialPageRoute<void>(
-          builder: (ctx) => const _SearchList(),
+          builder: (ctx) =>  _SearchList(),
         );
       },
     );
@@ -20,7 +20,7 @@ class Search extends StatelessWidget {
 }
 
 class _SearchList extends StatefulWidget {
-  const _SearchList({super.key});
+   _SearchList({super.key});
 
   @override
   State<_SearchList> createState() => _SearchListState();
@@ -84,10 +84,10 @@ class _SearchListState extends State<_SearchList> {
       body: _isLoading
           ?  Center(child: CircularProgressIndicator())
           : ListView(
-        padding: const EdgeInsets.all(16),
+        padding:  EdgeInsets.all(16),
         children: [
           TextField(
-            decoration: const InputDecoration(
+            decoration:  InputDecoration(
               hintText: 'Search...',
               border: OutlineInputBorder(),
             ),
@@ -96,12 +96,12 @@ class _SearchListState extends State<_SearchList> {
             },
 
           ),
-          const SizedBox(height: 16),
+           SizedBox(height: 16),
           if (_filteredUsers.isEmpty)
-            const Center(child: Text('No Result')),
+             Center(child: Text('No Result')),
           ..._filteredUsers.map((user) {
             return Padding(
-              padding: const EdgeInsets.only(bottom: 12),
+              padding:  EdgeInsets.only(bottom: 12),
               child: ListTile(
                 leading: CircleAvatar(
                   backgroundImage:

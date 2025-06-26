@@ -30,7 +30,7 @@ class UserPosts extends StatelessWidget {
       stream: query.snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Padding(
+          return  Padding(
             padding: EdgeInsets.all(16),
             child: Center(child: CircularProgressIndicator()),
           );
@@ -38,7 +38,7 @@ class UserPosts extends StatelessWidget {
 
 
         if (snapshot.hasError) {
-          return const Padding(
+          return  Padding(
             padding: EdgeInsets.all(16),
             child: Center(
               child: Text(
@@ -51,7 +51,7 @@ class UserPosts extends StatelessWidget {
 
         final docs = snapshot.data?.docs ?? [];
         if (docs.isEmpty) {
-          return const Padding(
+          return  Padding(
             padding: EdgeInsets.all(16),
             child: Center(
               child: Text(
@@ -66,7 +66,7 @@ class UserPosts extends StatelessWidget {
           itemCount: docs.length,
           shrinkWrap: true,
           physics:  NeverScrollableScrollPhysics(),
-          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+          padding:  EdgeInsets.symmetric(vertical: 8, horizontal: 4),
 
           itemBuilder: (context, i) {
             final docSnapshot = docs[i];
@@ -87,10 +87,10 @@ class UserPosts extends StatelessWidget {
                 final authorAvatar = userData['avatarURL'] as String? ?? '';
 
                 return Card(
-                  margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+                  margin:  EdgeInsets.symmetric(vertical: 6, horizontal: 8),
                   elevation: 2,
                   child: Padding(
-                    padding: const EdgeInsets.all(12),
+                    padding:  EdgeInsets.all(12),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -103,20 +103,20 @@ class UserPosts extends StatelessWidget {
                                   ? NetworkImage(authorAvatar)
                                   : null,
                               child: authorAvatar.isEmpty
-                                  ? const Icon(Icons.person, size: 20, color: Colors.white)
+                                  ?  Icon(Icons.person, size: 20, color: Colors.white)
                                   : null,
                             ),
-                            const SizedBox(width: 12),
+                             SizedBox(width: 12),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   authorName,
-                                  style: const TextStyle(fontWeight: FontWeight.bold),
+                                  style:  TextStyle(fontWeight: FontWeight.bold),
                                 ),
                                 Text(
                                   formatTimeAgo(createdAt),
-                                  style: const TextStyle(fontSize: 12, color: Colors.grey),
+                                  style:  TextStyle(fontSize: 12, color: Colors.grey),
                                 ),
                               ],
                             ),
@@ -125,13 +125,13 @@ class UserPosts extends StatelessWidget {
 
                         // description
                         if (description.isNotEmpty) ...[
-                          const SizedBox(height: 8),
+                           SizedBox(height: 8),
                           Text(description),
                         ],
 
                         // image
                         if (imageURL.isNotEmpty) ...[
-                          const SizedBox(height: 8),
+                           SizedBox(height: 8),
                           Container(
                             height: 300,
                             decoration: BoxDecoration(
@@ -145,7 +145,7 @@ class UserPosts extends StatelessWidget {
                         ],
 
                         // actions
-                        const SizedBox(height: 8),
+                         SizedBox(height: 8),
                         PostActions(
                           key: ValueKey(thisPostId),
                           postId: thisPostId,

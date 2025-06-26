@@ -43,7 +43,7 @@ class UserPostsWidget extends StatelessWidget {
         return ListView.builder(
           shrinkWrap: true,
           physics:  NeverScrollableScrollPhysics(),
-          //حتى ما تاخذ القيمه ارتفاع اكبر من محتواها
+           //حتى ما تاخذ القيمه ارتفاع اكبر من محتواها
           //
           itemCount: docs.length,
           itemBuilder: (context, i) {
@@ -56,10 +56,10 @@ class UserPostsWidget extends StatelessWidget {
             final authorRef = data['authorRef'] as DocumentReference;
              //برجع كارد في مواصفات التالنيه
             return Card(
-              margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+              margin:  EdgeInsets.symmetric(vertical: 6, horizontal: 8),
               elevation: 2,//يعني الظل
               child: Padding(
-                padding: const EdgeInsets.all(12),
+                padding:  EdgeInsets.all(12),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -69,7 +69,7 @@ class UserPostsWidget extends StatelessWidget {
                       builder: (context, snap) {
                         if (snap.connectionState == ConnectionState.waiting) {
                           return Row(
-                            children: const [
+                            children:  [
                               CircleAvatar(radius: 20),
                               SizedBox(width: 12),
                               Text(
@@ -81,7 +81,7 @@ class UserPostsWidget extends StatelessWidget {
                         }
                         if (!snap.hasData || !snap.data!.exists) {
                           return Row(
-                            children: const [
+                            children:  [
                               CircleAvatar(radius: 20),
                               SizedBox(width: 12),
                               Text(
@@ -108,29 +108,29 @@ class UserPostsWidget extends StatelessWidget {
                                   ? NetworkImage(authorAvatar)
                                   : null,
                               child: authorAvatar.isEmpty
-                                  ? const Icon(Icons.person,
+                                  ?  Icon(Icons.person,
                                   size: 20, color: Colors.white)
                                   : null,
                             ),
-                            const SizedBox(width: 12),
+                             SizedBox(width: 12),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   authorName,
-                                  style: const TextStyle(
+                                  style:  TextStyle(
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Text(
                                   formatTimeAgo(createdAt),
-                                  style: const TextStyle(
+                                  style:  TextStyle(
                                       fontSize: 12, color: Colors.grey),
                                 ),
                               ],
                             ),
-                            const Spacer(),
+                             Spacer(),
                             IconButton(
-                              icon: const Icon(
+                              icon:  Icon(
                                 Icons.edit,
                                 size: 20,
                                 color: Colors.grey,
@@ -154,13 +154,13 @@ class UserPostsWidget extends StatelessWidget {
 
                     // description
                     if (description.isNotEmpty) ...[
-                      const SizedBox(height: 8),
+                       SizedBox(height: 8),
                       Text(description),
                     ],
 
                     // image
                     if (imageURL.isNotEmpty) ...[
-                      const SizedBox(height: 8),
+                       SizedBox(height: 8),
                       Container(
                         height: 300,
                         decoration: BoxDecoration(
@@ -173,7 +173,7 @@ class UserPostsWidget extends StatelessWidget {
                       ),
                     ],
 
-                    const SizedBox(height: 8),
+                     SizedBox(height: 8),
                     PostActions(
                       key: ValueKey(postId),
                       postId: postId,

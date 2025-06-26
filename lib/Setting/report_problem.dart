@@ -35,14 +35,14 @@ class _ReportProblemPageState extends State<ReportProblemPage> {
     if (problemText.isEmpty) {
       // إذا المستخدم ما كتب إشي، بنعرضله رسالة
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Please describe your problem.")),
+         SnackBar(content: Text("Please describe your problem.")),
       );
       return;
     }
 
 
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text("Your report has been submitted. Thank you!")),
+       SnackBar(content: Text("Your report has been submitted. Thank you!")),
     );
 
     // بعد الإرسال، نفرغ الحقول ونرجع الاختيار لأول خيار
@@ -55,17 +55,19 @@ class _ReportProblemPageState extends State<ReportProblemPage> {
     return Scaffold(
       backgroundColor: silk.withOpacity(0.98),
       appBar: AppBar(
-        backgroundColor: rubyRed,
-        title: const Text('Report a Problem', style: TextStyle(color: silk, fontWeight: FontWeight.bold)),
+        iconTheme:  IconThemeData(color: Colors.white),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.pop(context), // يرجع للصفحة السابقة
+          icon:  Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
         ),
+        backgroundColor: rubyRed,
+        title:  Text('Report a Problem', style: TextStyle(color: silk, fontWeight: FontWeight.bold)),
+
       ),
       body: Padding(
-        padding: const EdgeInsets.all(24.0),
+        padding:  EdgeInsets.all(24.0),
         child: Container(
-          padding: const EdgeInsets.all(16),
+          padding:  EdgeInsets.all(16),
           decoration: BoxDecoration(
             color: Colors.white.withOpacity(0.95),
             borderRadius: BorderRadius.circular(14),
@@ -73,12 +75,12 @@ class _ReportProblemPageState extends State<ReportProblemPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // عنوان اختيار نوع المشكلة
-              const Text(
+
+               Text(
                 "Select Problem Type:",
                 style: TextStyle(fontSize: 16, color: darkRed),
               ),
-              const SizedBox(height: 8), // فراغ بسيط
+               SizedBox(height: 8),
 
               // قائمة منسدلة لاختيار نوع المشكلة
               DropdownButton<String>(
@@ -94,19 +96,19 @@ class _ReportProblemPageState extends State<ReportProblemPage> {
                   if (value != null) setState(() => _selectedType = value);
                 },
               ),
-              const SizedBox(height: 16),
+               SizedBox(height: 16),
 
-              // عنوان لوصف المشكلة
-              const Text(
+
+               Text(
                 "Describe the problem:",
                 style: TextStyle(fontSize: 16, color: darkRed),
               ),
-              const SizedBox(height: 8),
+               SizedBox(height: 8),
 
 
               TextField(
                 controller: _problemController,
-                maxLines: 5, // عدد السطور
+                maxLines: 5,
                 decoration: InputDecoration(
                   hintText: "Write here...",
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
@@ -114,18 +116,18 @@ class _ReportProblemPageState extends State<ReportProblemPage> {
                   filled: true,
                 ),
               ),
-              const SizedBox(height: 20),
+               SizedBox(height: 20),
 
-              // زر الإرسال
+
               Center(
                 child: ElevatedButton.icon(
                   onPressed: _submitProblem,
-                  icon: const Icon(Icons.send),
-                  label: const Text("Submit"),
+                  icon:  Icon(Icons.send),
+                  label:  Text("Submit"),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: rubyRed,
                     foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                    padding:  EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                   ),
                 ),
               )

@@ -22,15 +22,15 @@ class PostsList extends StatelessWidget {
           .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
+          return  Center(child: CircularProgressIndicator());
         }
         if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-          return const Center(child: Text('No posts yet.'));
+          return  Center(child: Text('No posts yet.'));
         }
 
         final docs = snapshot.data!.docs;
         return ListView.builder(
-          padding: const EdgeInsets.all(8),
+          padding:  EdgeInsets.all(8),
           itemCount: docs.length,
           itemBuilder: (context, i) {
             final doc = docs[i];
@@ -40,10 +40,10 @@ class PostsList extends StatelessWidget {
             final authorRef = data['authorRef'] as DocumentReference;
 
             return Card(
-              margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
+              margin:  EdgeInsets.symmetric(vertical: 6, horizontal: 8),
               elevation: 2,
               child: Padding(
-                padding: const EdgeInsets.all(12),
+                padding:  EdgeInsets.all(12),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -52,7 +52,7 @@ class PostsList extends StatelessWidget {
                       stream: authorRef.snapshots(),
                       builder: (context, snap) {
                         if (snap.connectionState == ConnectionState.waiting) {
-                          return const Row(
+                          return  Row(
                             children: [
                               SizedBox(
                                 width: 24,
@@ -65,7 +65,7 @@ class PostsList extends StatelessWidget {
                           );
                         }
                         if (!snap.hasData || !snap.data!.exists) {
-                          return const Text(
+                          return  Text(
                             'Unknown user',
                             style: TextStyle(fontStyle: FontStyle.italic),
                           );
@@ -80,18 +80,18 @@ class PostsList extends StatelessWidget {
                               backgroundImage:
                               avatar.isNotEmpty ? NetworkImage(avatar) : null,
                               child: avatar.isEmpty
-                                  ? const Icon(Icons.person,
+                                  ?  Icon(Icons.person,
                                   size: 20, color: Colors.white)
                                   : null,
                             ),
-                            const SizedBox(width: 12),
+                             SizedBox(width: 12),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(name, style:
-                                    const TextStyle(fontWeight: FontWeight.bold)),
+                                     TextStyle(fontWeight: FontWeight.bold)),
                                 Text(formatTimeAgo(createdAt),
-                                    style: const TextStyle(
+                                    style:  TextStyle(
                                         fontSize: 12, color: Colors.grey)),
                               ],
                             ),
@@ -102,13 +102,13 @@ class PostsList extends StatelessWidget {
 
                     // description
                     if ((data['description'] as String).isNotEmpty) ...[
-                      const SizedBox(height: 8),
+                       SizedBox(height: 8),
                       Text(data['description'] as String),
                     ],
 
                     // image
                     if ((data['imageURL'] as String).isNotEmpty) ...[
-                      const SizedBox(height: 8),
+                       SizedBox(height: 8),
                       Container(
                         height: 300,
                         decoration: BoxDecoration(
@@ -122,7 +122,7 @@ class PostsList extends StatelessWidget {
                     ],
 
                     // actions
-                    const SizedBox(height: 8),
+                     SizedBox(height: 8),
                     PostActions(
                       key: ValueKey(postId),
                       postId: postId,

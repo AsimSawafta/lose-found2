@@ -76,13 +76,13 @@ class _PostActionsState extends State<PostActions> {
           widget.isResolved ? Icons.check_circle : Icons.error_outline,
           color: widget.isResolved ? Colors.green : Colors.red,
         ),
-        const SizedBox(width: 8),
+         SizedBox(width: 8),
         Text(
           widget.isResolved ? 'Founded' : 'Lose',
-          style: const TextStyle(fontWeight: FontWeight.w600),
+          style:  TextStyle(fontWeight: FontWeight.w600),
         ),
 
-        const Spacer(),
+         Spacer(),
 
         IconButton(
           icon: Icon(
@@ -93,10 +93,10 @@ class _PostActionsState extends State<PostActions> {
         ),
         Text('$likeCount'),
 
-        const SizedBox(width: 16),
+         SizedBox(width: 16),
 
         IconButton(
-          icon: const Icon(Icons.mode_comment_outlined),
+          icon:  Icon(Icons.mode_comment_outlined),
           onPressed: () => showCommentsSheet(context, widget.postId),
         ),
         SavePostButton(postId: widget.postId),

@@ -29,7 +29,7 @@ class _settingsState extends State<settings> {
     return Scaffold(
       backgroundColor: silk.withOpacity(0.98),
       body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+        padding:  EdgeInsets.symmetric(horizontal: 20, vertical: 30),
         children: [
           Text(
             'Account',
@@ -41,7 +41,7 @@ class _settingsState extends State<settings> {
               shadows: [
                 Shadow(
                   color: rubyRed.withOpacity(0.4),
-                  offset: const Offset(0, 2),
+                  offset:  Offset(0, 2),
                   blurRadius: 6,
                 ),
               ],
@@ -72,7 +72,7 @@ class _settingsState extends State<settings> {
             },
           ),
 
-          const SizedBox(height: 40),
+           SizedBox(height: 40),
           Text(
             'General',
             style: TextStyle(
@@ -83,7 +83,7 @@ class _settingsState extends State<settings> {
               shadows: [
                 Shadow(
                   color: rubyRed.withOpacity(0.4),
-                  offset: const Offset(0, 2),
+                  offset:  Offset(0, 2),
                   blurRadius: 6,
                 ),
               ],
@@ -99,12 +99,12 @@ class _settingsState extends State<settings> {
             },
           ),
 
-          const SizedBox(height: 60),
+           SizedBox(height: 60),
           Center(
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: indianRed,
-                padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 16),
+                padding:  EdgeInsets.symmetric(horizontal: 100, vertical: 16),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(40),
                   side: BorderSide(color: rubyRed.withOpacity(0.8), width: 2),
@@ -113,7 +113,7 @@ class _settingsState extends State<settings> {
                 shadowColor: indianRed,
               ),
               onPressed: _handleLogout,
-              child: const Text(
+              child:  Text(
                 'Log Out',
                 style: TextStyle(
                   color: Colors.white,
@@ -135,24 +135,24 @@ class _settingsState extends State<settings> {
     required VoidCallback onTap,
   }) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 8),
+      margin:  EdgeInsets.symmetric(vertical: 8),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.9),
+        color: Colors.white,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
             color: Colors.black12,
             blurRadius: 8,
-            offset: const Offset(0, 4),
+            offset:  Offset(0, 4),
           ),
         ],
       ),
       child: ListTile(
-        contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+        contentPadding:  EdgeInsets.symmetric(horizontal: 20),
         leading: Icon(icon, color: darkRed, size: 28),
         title: Text(
           title,
-          style: const TextStyle(
+          style:  TextStyle(
             color: Color(0xFF3D0A05),
             fontWeight: FontWeight.w700,
             fontSize: 17,

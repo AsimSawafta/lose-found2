@@ -21,11 +21,11 @@ class HelpnSupport extends StatelessWidget {
       backgroundColor: silk.withOpacity(0.98), // لون الخلفية
       appBar: AppBar(
         backgroundColor: rubyRed, // لون الشريط العلوي
-        elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: darkRed, size: 26), // زر الرجوع
-          onPressed: () => Navigator.pop(context), // يرجع للصفحة السابقة
+          icon:  Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
         ),
+        iconTheme:  IconThemeData(color: Colors.white),
         title: Text(
           'Help & Support', // عنوان الصفحة
           style: TextStyle(
@@ -43,7 +43,7 @@ class HelpnSupport extends StatelessWidget {
           _buildHelpItem(Icons.help_outline, 'Help Center', () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (_) => const ContactSupport()),
+              MaterialPageRoute(builder: (_) =>  ContactSupport()),
             );
           }),
 
@@ -51,25 +51,18 @@ class HelpnSupport extends StatelessWidget {
           _buildHelpItem(Icons.verified_user_outlined, 'Account Status', () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (_) => const AccountStatusPage()),
+              MaterialPageRoute(builder: (_) =>  AccountStatusPage()),
             );
           }),
 
 
-          /*_buildHelpItem(Icons.mail_outline, 'Support Inbox', () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const SupportInboxPage()),
-            );
-          }),
 
-           */
 
 
           _buildHelpItem(Icons.error_outline, 'Report a problem', () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (_) => const ReportProblemPage()),
+              MaterialPageRoute(builder: (_) =>  ReportProblemPage()),
             );
           }),
         ],
@@ -80,7 +73,7 @@ class HelpnSupport extends StatelessWidget {
   // دالة بتبني شكل العنصر الواحد في القائمة (زي بطاقة فيها أيقونة ونص)
   Widget _buildHelpItem(IconData icon, String title, VoidCallback onTap) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      margin:  EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.95), // لون الخلفية
         borderRadius: BorderRadius.circular(14), // تدوير الزوايا
@@ -88,12 +81,12 @@ class HelpnSupport extends StatelessWidget {
           BoxShadow(
             color: indianRed.withOpacity(0.15), // ظل خفيف
             blurRadius: 6,
-            offset: const Offset(0, 3),
+            offset:  Offset(0, 3),
           ),
         ],
       ),
       child: ListTile(
-        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+        contentPadding:  EdgeInsets.symmetric(horizontal: 20, vertical: 12),
         leading: CircleAvatar(
           backgroundColor: greyBeige.withOpacity(0.2), // دائرة خلف الأيقونة
           radius: 22,

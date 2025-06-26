@@ -40,18 +40,18 @@ class _EditPostScreenState extends State<EditPostScreen> {
       context: context,
       builder: (_) => AlertDialog(
         backgroundColor: AppColors.darkRed,
-        title: const Text('Delete Post', style: TextStyle(color: AppColors.silk)),
-        content: const Text(
+        title:  Text('Delete Post', style: TextStyle(color: AppColors.silk)),
+        content:  Text(
           'Are you sure you want to delete this post?',
           style: TextStyle(color: AppColors.greyBeige),
         ),
         actions: [
           TextButton(
-            child: const Text('Cancel', style: TextStyle(color: AppColors.indianRed)),
+            child:  Text('Cancel', style: TextStyle(color: AppColors.indianRed)),
             onPressed: () => Navigator.pop(context),
           ),
           TextButton(
-            child: const Text('Delete'),
+            child:  Text('Delete'),
             style: TextButton.styleFrom(foregroundColor: Colors.red),
             onPressed: () => Navigator.pop(context, true),
           ),
@@ -122,53 +122,53 @@ class _EditPostScreenState extends State<EditPostScreen> {
                letterSpacing: 0.5,
 
              )),
-            const SizedBox(height: 8),
+             SizedBox(height: 8),
             TextField(
               controller: _imgCtrl,
-              style: const TextStyle(color: Colors.black),
+              style:  TextStyle(color: Colors.black),
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Colors.white,
                 border: border,
                 enabledBorder: border,
                 focusedBorder: border,
-                contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                contentPadding:  EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               ),
             ),
-            const SizedBox(height: 16),
-            // Label + Input for Description
-            const Text('Description',  style: TextStyle(
+             SizedBox(height: 16),
+
+             Text('Description',  style: TextStyle(
               color: AppColors.rubyRed,
               fontWeight: FontWeight.w200,
               fontSize: 22,
               letterSpacing: 0.5,
 
             )),
-            const SizedBox(height: 8),
+             SizedBox(height: 8),
             TextField(
               controller: _descCtrl,
               maxLines: 4,
-              style: const TextStyle(color: Colors.black),
+              style:  TextStyle(color: Colors.black),
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Colors.white,
                 border: border,
                 enabledBorder: border,
                 focusedBorder: border,
-                contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                contentPadding:  EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               ),
             ),
-            const SizedBox(height: 16),
+             SizedBox(height: 16),
             Container(
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: SwitchListTile(
-                contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                contentPadding:  EdgeInsets.symmetric(horizontal: 16),
                 activeColor: Colors.green,
                 inactiveThumbColor: Colors.red,
-                title: const Text('Found?', style: TextStyle(color: Colors.black)),
+                title:  Text('Found?', style: TextStyle(color: Colors.black)),
                 value: _found,
                 onChanged: (v) => setState(() => _found = v),
               ),
@@ -178,10 +178,10 @@ class _EditPostScreenState extends State<EditPostScreen> {
               onPressed: _save,
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.rubyRed,
-                padding: const EdgeInsets.symmetric(vertical: 16),
+                padding:  EdgeInsets.symmetric(vertical: 16),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),
-              child: const Text('Save Changes', style: TextStyle(color: Colors.white,fontSize: 16,)),
+              child:  Text('Save Changes', style: TextStyle(color: Colors.white,fontSize: 16,)),
             ),
           ],
         ),

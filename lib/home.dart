@@ -138,10 +138,10 @@ class _HomeState extends State<Home> {
               setState(() {}); // refresh list
 
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Post published!')),
+                 SnackBar(content: Text('Post published!')),
               );
             },
-            child: const Text('Publish', style: TextStyle(color: Colors.white)),
+            child:  Text('Publish', style: TextStyle(color: Colors.white)),
           ),
         ],
       ),
@@ -175,7 +175,7 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: Text(
           ['Profile', 'Home', 'Search', 'Settings', 'Messages'][_currentIndex],
-          style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+          style:  TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
         backgroundColor: AppColors.rubyRed,
         centerTitle: true,
@@ -186,9 +186,12 @@ class _HomeState extends State<Home> {
         onTap: (idx) => setState(() => _currentIndex = idx),
         selectedItemColor: AppColors.rubyRed,
         unselectedItemColor: AppColors.greyBeige,
-        backgroundColor: AppColors.silk,
+
+        backgroundColor: (_currentIndex == 0 || _currentIndex == 3) ? Colors.white : AppColors.silk,
+
+
         type: BottomNavigationBarType.fixed,
-        items: const [
+        items:  [
           BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: 'Profile'),
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
@@ -199,8 +202,9 @@ class _HomeState extends State<Home> {
       floatingActionButton: _currentIndex == 1
           ? FloatingActionButton(
         backgroundColor: AppColors.rubyRed,
+
         onPressed: _showAddPostDialog,
-        child: const Icon(Icons.add, color: Colors.white),
+        child:  Icon(Icons.add, color: Colors.white),
       )
           : null,
     );

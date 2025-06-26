@@ -12,7 +12,6 @@ import 'Setting/change_pswd.dart';
 import 'Setting/help_n_support.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

@@ -53,7 +53,7 @@ class _UsersProfileState extends State<UsersProfile> {
   @override
   Widget build(BuildContext context) {
     if (_isLoading) {
-      return const Scaffold(
+      return  Scaffold(
         body: Center(child: CircularProgressIndicator()),
       );
     }
@@ -65,7 +65,7 @@ class _UsersProfileState extends State<UsersProfile> {
           Column(
           children: [
             Container(
-              padding: const EdgeInsets.all(16),
+              padding:  EdgeInsets.all(16),
               color: AppColors.silk,
               child: Row(
                 children: [
@@ -75,29 +75,29 @@ class _UsersProfileState extends State<UsersProfile> {
                         ? NetworkImage(avatarUrl!)
                         : null,
                   ),
-                  const SizedBox(width: 16),
+                   SizedBox(width: 16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         username ?? '',
-                        style: const TextStyle(
+                        style:  TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                           color: AppColors.darkRed,
                         ),
                       ),
-                      const SizedBox(height: 4),
+                       SizedBox(height: 4),
                       Text(
                         bio ?? 'no bio',
-                        style: const TextStyle(color: AppColors.indianRed),
+                        style:  TextStyle(color: AppColors.indianRed),
                       ),
-                      const SizedBox(height: 4),
+                       SizedBox(height: 4),
                       if (joined != null)
                         Text(
 
                           'Joined: ${formatShortDate(joined!.toLocal())}',
-                          style: const TextStyle(color: AppColors.indianRed),
+                          style:  TextStyle(color: AppColors.indianRed),
                         ),
                     ],
                   ),

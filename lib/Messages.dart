@@ -8,11 +8,14 @@ class AppColors {
   static const Color indianRed = Color(0xFFAC746C);
 }
 
-class Messages extends StatelessWidget {
-  final String currentUserId;
+class Messages extends StatefulWidget {
+  const Messages({super.key});
 
-  const Messages({Key? key, required this.currentUserId}) : super(key: key);
+  @override
+  State<Messages> createState() => _MessagesState();
+}
 
+class _MessagesState extends State<Messages> {
   @override
   Widget build(BuildContext context) {
     final List<Map<String, dynamic>> chatUsers = [
@@ -22,12 +25,7 @@ class Messages extends StatelessWidget {
         'imageURL': 'https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=100',
         'lastActive': '2 min ago',
       },
-      {
-        'name': 'Sara',
-        'lastMessage': 'I will call you later.',
-        'imageURL': 'https://images.unsplash.com/photo-1502767089025-6572583495b4?w=100',
-        'lastActive': '10 min ago',
-      },
+
       {
         'name': 'Mona',
         'lastMessage': 'Thanks for your help! See you soon.',
@@ -80,10 +78,7 @@ class Messages extends StatelessWidget {
 
 
     final List<Map<String, dynamic>> recentChats = [
-      {
-        'name': 'Lina',
-        'imageURL': 'https://images.unsplash.com/photo-1542156822-7e89f6e80f16?w=80',
-      },
+
       {
         'name': 'Yousef',
         'imageURL': 'https://images.unsplash.com/photo-1546525848-3ce03ca516f6?w=80',
@@ -121,14 +116,13 @@ class Messages extends StatelessWidget {
         'imageURL': 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?w=80',
       },
     ];
-
     return Scaffold(
       backgroundColor: AppColors.silk,
 
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-           Padding(
+          Padding(
             padding: EdgeInsets.only(left: 16, top: 12, bottom: 8),
             child: Text(
               "Recent Chats",
@@ -160,7 +154,7 @@ class Messages extends StatelessWidget {
                         radius: 30,
                         backgroundImage: NetworkImage(user['imageURL']),
                       ),
-                       SizedBox(height: 6),
+                      SizedBox(height: 6),
                       SizedBox(
                         width: 60,
                         child: Text(
@@ -180,8 +174,8 @@ class Messages extends StatelessWidget {
               },
             ),
           ),
-           SizedBox(height: 12),
-           Padding(
+          SizedBox(height: 12),
+          Padding(
             padding: EdgeInsets.only(left: 16, bottom: 8),
             child: Text(
               "All Chats",
@@ -218,7 +212,7 @@ class Messages extends StatelessWidget {
                         radius: 30,
                         backgroundImage: NetworkImage(user['imageURL']),
                       ),
-                       SizedBox(width: 12),
+                      SizedBox(width: 12),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -236,7 +230,7 @@ class Messages extends StatelessWidget {
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
-                                 SizedBox(width: 8),
+                                SizedBox(width: 8),
                                 Text(
                                   user['lastActive'],
                                   style:  TextStyle(
@@ -246,7 +240,7 @@ class Messages extends StatelessWidget {
                                 ),
                               ],
                             ),
-                             SizedBox(height: 6),
+                            SizedBox(height: 6),
                             Text(
                               user['lastMessage'],
                               maxLines: 1,
@@ -259,7 +253,7 @@ class Messages extends StatelessWidget {
                           ],
                         ),
                       ),
-                      //  شلت أزرار Call و Chat عشان ما يصير overflow
+
                     ],
                   ),
                 );
@@ -272,3 +266,4 @@ class Messages extends StatelessWidget {
     );
   }
 }
+

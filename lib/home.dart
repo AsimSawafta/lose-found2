@@ -2,12 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:lose_found/Messages.dart';
 import 'Posts/posts.dart';
 import 'Search.dart';
 import 'Profile/profile.dart';
 import 'Setting/settings.dart';
-import 'messages.dart';
+
 
 class AppColors {
   static const Color darkRed = Color(0xFF3D0A05);
@@ -27,7 +27,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int _currentIndex = 1; // 0=Profile, 1=Home, 2=Search, 3=Settings, 4=Messages
   String? _uid;
-  String? _avatarUrl;
   bool _isLoading = true;
 
   final _formKey = GlobalKey<FormState>();
@@ -42,14 +41,8 @@ class _HomeState extends State<Home> {
 
   void _loadUserProfile() async {
     final user = FirebaseAuth.instance.currentUser!;
-    final doc = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(user.uid)
-        .get();
-    final data = doc.data()!;
     setState(() {
       _uid       = user.uid;
-      _avatarUrl = data['avatarURL'] as String?;
       _isLoading = false;
     });
   }
@@ -123,12 +116,10 @@ class _HomeState extends State<Home> {
             onPressed: () async {
               if (!(_formKey.currentState?.validate() ?? false)) return;
               await FirebaseFirestore.instance.collection('posts').add({
-                // now store reference to the user document
                 'authorRef': FirebaseFirestore.instance.doc('users/$_uid'),
                 'description': _descCtrl.text.trim(),
                 'imageURL': _imageUrlCtrl.text.trim(),
                 'isResolved': false,
-                // وظيفه الTimestamp
                 'createdAt': Timestamp.now(),
               });
 
@@ -166,9 +157,9 @@ class _HomeState extends State<Home> {
       ),
       Search(),
       settings(),
-      _uid != null
-          ? Messages(currentUserId: _uid!)
-          : Center(child: CircularProgressIndicator()),
+
+    Messages()
+
     ];
 
     return Scaffold(

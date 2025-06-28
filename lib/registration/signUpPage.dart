@@ -110,7 +110,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   shape: BoxShape.circle,
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors.rubyRed.withOpacity(0.3),
+                      color: AppColors.rubyRed,
                       blurRadius: 18,
                       offset: Offset(0, 8),
                     ),
@@ -131,7 +131,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   letterSpacing: 2,
                   shadows: [
                     Shadow(
-                      color: AppColors.rubyRed.withOpacity(0.5),
+                      color: AppColors.rubyRed,
                       offset: Offset(0, 2),
                       blurRadius: 8,
                     ),
@@ -228,7 +228,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     elevation: 8,
-                    shadowColor: AppColors.rubyRed.withOpacity(0.6),
+                    shadowColor: AppColors.rubyRed,
                   ),
                   child: _loading
                       ? CircularProgressIndicator(color: Colors.white)
@@ -254,7 +254,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         fontWeight: FontWeight.w600),
                   ),
                   GestureDetector(
-                    onTap: () => Navigator.pop(context),
+                    onTap: () => Navigator.pushNamed(context, '/signIn'),
                     child: Text(
                       'Sign In',
                       style: TextStyle(
@@ -302,7 +302,7 @@ class _SignUpPageState extends State<SignUpPage> {
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(20),
-        borderSide: BorderSide(color: AppColors.rubyRed.withOpacity(0.4)),
+        borderSide: BorderSide(color: AppColors.rubyRed),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(20),

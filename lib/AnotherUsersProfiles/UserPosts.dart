@@ -21,13 +21,11 @@ class UserPosts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userRef = FirebaseFirestore.instance.collection('users').doc(uid);
-    final query = FirebaseFirestore.instance
-        .collection('posts')
-        .where('authorRef', isEqualTo: userRef);
+    final userPosts = FirebaseFirestore.instance.collection('posts').where('authorRef', isEqualTo: userRef);
 
 
     return StreamBuilder(
-      stream: query.snapshots(),
+      stream: userPosts.snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return  Padding(
@@ -36,20 +34,7 @@ class UserPosts extends StatelessWidget {
           );
         }
 
-
-        if (snapshot.hasError) {
-          return  Padding(
-            padding: EdgeInsets.all(16),
-            child: Center(
-              child: Text(
-                "Error loading posts",
-                style: TextStyle(color: Colors.black),
-              ),
-            ),
-          );
-        }
-
-        final docs = snapshot.data?.docs ?? [];
+        final docs = snapshot.data!.docs ;
         if (docs.isEmpty) {
           return  Padding(
             padding: EdgeInsets.all(16),

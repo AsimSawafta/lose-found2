@@ -75,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
                   shape: BoxShape.circle,
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors.rubyRed.withOpacity(0.3),
+                      color: AppColors.rubyRed,
                       blurRadius: 18,
                       offset:  Offset(0, 8),
                     ),
@@ -99,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
                   letterSpacing: 2,
                   shadows: [
                     Shadow(
-                      color: AppColors.rubyRed.withOpacity(0.5),
+                      color: AppColors.rubyRed,
                       offset:  Offset(0, 2),
                       blurRadius: 8,
                     ),
@@ -144,7 +144,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20),
-                          borderSide: BorderSide(color: AppColors.rubyRed.withOpacity(0.4)),
+                          borderSide: BorderSide(color: AppColors.rubyRed),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20),
@@ -181,7 +181,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20),
-                          borderSide: BorderSide(color: AppColors.rubyRed.withOpacity(0.4)),
+                          borderSide: BorderSide(color: AppColors.rubyRed),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20),
@@ -206,7 +206,7 @@ class _LoginPageState extends State<LoginPage> {
                     backgroundColor: AppColors.rubyRed,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                     elevation: 8,
-                    shadowColor: AppColors.rubyRed.withOpacity(0.6),
+                    shadowColor: AppColors.rubyRed,
                   ),
                   child: _loading
                       ?  CircularProgressIndicator(color: Colors.white)

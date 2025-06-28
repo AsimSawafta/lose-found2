@@ -15,7 +15,8 @@ class PostsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
+
+    return StreamBuilder(
       stream: FirebaseFirestore.instance
           .collection('posts')
           .orderBy('createdAt', descending: true)
@@ -37,11 +38,12 @@ class PostsList extends StatelessWidget {
             final data = doc.data() as Map<String, dynamic>;
             final postId = doc.id;
             final createdAt = (data['createdAt'] as Timestamp).toDate();
-            final authorRef = data['authorRef'] as DocumentReference;
+            final authorRef = data['authorRef'] ;
 
             return Card(
               margin:  EdgeInsets.symmetric(vertical: 6, horizontal: 8),
               elevation: 2,
+
               child: Padding(
                 padding:  EdgeInsets.all(12),
                 child: Column(
@@ -49,7 +51,7 @@ class PostsList extends StatelessWidget {
                   children: [
                     // header with StreamBuilder
                     StreamBuilder(
-                      stream: authorRef.snapshots(),
+                      stream: (authorRef as DocumentReference).snapshots(),
                       builder: (context, snap) {
                         if (snap.connectionState == ConnectionState.waiting) {
                           return  Row(
@@ -70,9 +72,9 @@ class PostsList extends StatelessWidget {
                             style: TextStyle(fontStyle: FontStyle.italic),
                           );
                         }
-                        final u = snap.data!.data()! as Map<String, dynamic>;
-                        final avatar = (u['avatarURL'] as String?) ?? '';
-                        final name = (u['username'] as String?) ?? '';
+                        final user = snap.data!.data()! as Map<String, dynamic>;
+                        final avatar = (user['avatarURL'] as String?) ?? '';
+                        final name = (user['username'] as String?) ?? '';
                         return Row(
                           children: [
                             CircleAvatar(
@@ -111,7 +113,9 @@ class PostsList extends StatelessWidget {
                        SizedBox(height: 8),
                       Container(
                         height: 300,
+
                         decoration: BoxDecoration(
+
                           borderRadius: BorderRadius.circular(8),
                           image: DecorationImage(
                             image: NetworkImage(data['imageURL'] as String),
@@ -138,3 +142,4 @@ class PostsList extends StatelessWidget {
     );
   }
 }
+

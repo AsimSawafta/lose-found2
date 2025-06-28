@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 
 
 class AppColors {
@@ -28,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
   bool _loading = false;
 
   @override
-  //لما المستخدم بطلع من صفحه ااويدجت الفلتر بعمل تنظيف
+
   void dispose() {
     _emailCtrl.dispose();
     _passwordCtrl.dispose();
@@ -39,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
     if (!(_formKey.currentState?.validate() ?? false)) return;
 
     try {
-      // 1) Sign in with Firebase Auth (اذا كان المستخدم مسجل من قبل بفوت)
+
        await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: _emailCtrl.text.trim(),
         password: _passwordCtrl.text,
@@ -59,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    final radius = 20.0;
+
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -140,17 +138,16 @@ class _LoginPageState extends State<LoginPage> {
                         hintText: 'Email',
                         hintStyle: TextStyle(color: AppColors.greyBeige, fontWeight: FontWeight.w500),
                         prefixIcon: Icon(Icons.email_outlined, color: AppColors.rubyRed),
-                        contentPadding:  EdgeInsets.symmetric(vertical: 18, horizontal: 20),
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(radius),
+                          borderRadius: BorderRadius.circular(20),
                           borderSide: BorderSide.none,
                         ),
                         enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(radius),
+                          borderRadius: BorderRadius.circular(20),
                           borderSide: BorderSide(color: AppColors.rubyRed.withOpacity(0.4)),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(radius),
+                          borderRadius: BorderRadius.circular(20),
                           borderSide: BorderSide(color: AppColors.rubyRed, width: 2),
                         ),
                       ),
@@ -179,15 +176,15 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         contentPadding: EdgeInsets.symmetric(vertical: 18, horizontal: 20),
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(radius),
+                          borderRadius: BorderRadius.circular(20),
                           borderSide: BorderSide.none,
                         ),
                         enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(radius),
+                          borderRadius: BorderRadius.circular(20),
                           borderSide: BorderSide(color: AppColors.rubyRed.withOpacity(0.4)),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(radius),
+                          borderRadius: BorderRadius.circular(20),
                           borderSide: BorderSide(color: AppColors.rubyRed, width: 2),
                         ),
                       ),
@@ -207,7 +204,7 @@ class _LoginPageState extends State<LoginPage> {
                   onPressed: _loading ? null : _signIn,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.rubyRed,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius)),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                     elevation: 8,
                     shadowColor: AppColors.rubyRed.withOpacity(0.6),
                   ),

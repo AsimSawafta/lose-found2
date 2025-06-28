@@ -42,7 +42,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
     if (_passwordCtrl.text != _confirmPasswordCtrl.text) {
       ScaffoldMessenger.of(context).showSnackBar(
-         SnackBar(content: Text("Passwords do not match")),
+        SnackBar(content: Text("Passwords do not match")),
       );
       return;
     }
@@ -71,51 +71,38 @@ class _SignUpPageState extends State<SignUpPage> {
         'createdAt': Timestamp.now(),
       });
 
-      if (!mounted) return;
-
       ScaffoldMessenger.of(context).showSnackBar(
-         SnackBar(content: Text('Registration Successfully')),
+        SnackBar(content: Text('Registration Successfully')),
       );
-
 
       Navigator.pushNamed(context, '/signIn');
     } on FirebaseAuthException catch (e) {
-      if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Sign-up failed: ${e.message}'),
           backgroundColor: AppColors.rubyRed,
         ),
       );
-    } catch (e) {
-      if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Error writing Firestore: $e'),
-          backgroundColor: AppColors.rubyRed,
-        ),
-      );
-    } finally {
-      if (mounted) {
-        setState(() {
-          _loading = false;
-        });
-      }
+    }  finally {
+      setState(() {
+        _loading = false;
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final radius = 20.0;
+
 
     return Scaffold(
       backgroundColor: AppColors.background,
       body: Center(
         child: SingleChildScrollView(
-          padding:  EdgeInsets.symmetric(horizontal: 28),
+          padding: EdgeInsets.symmetric(horizontal: 28),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              SizedBox(height: 10),
               Container(
                 width: 140,
                 height: 140,
@@ -125,16 +112,16 @@ class _SignUpPageState extends State<SignUpPage> {
                     BoxShadow(
                       color: AppColors.rubyRed.withOpacity(0.3),
                       blurRadius: 18,
-                      offset:  Offset(0, 8),
+                      offset: Offset(0, 8),
                     ),
                   ],
-                  image:  DecorationImage(
+                  image: DecorationImage(
                     image: AssetImage('assets/img.png'),
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
-               SizedBox(height: 28),
+              SizedBox(height: 28),
               Text(
                 'Create Account',
                 style: TextStyle(
@@ -145,13 +132,13 @@ class _SignUpPageState extends State<SignUpPage> {
                   shadows: [
                     Shadow(
                       color: AppColors.rubyRed.withOpacity(0.5),
-                      offset:  Offset(0, 2),
+                      offset: Offset(0, 2),
                       blurRadius: 8,
                     ),
                   ],
                 ),
               ),
-               SizedBox(height: 10),
+              SizedBox(height: 10),
               Text(
                 'Join us now!',
                 style: TextStyle(
@@ -161,7 +148,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   letterSpacing: 1.2,
                 ),
               ),
-               SizedBox(height: 40),
+              SizedBox(height: 40),
               Form(
                 key: _formKey,
                 child: Column(
@@ -176,7 +163,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       validator: (val) =>
                       (val == null || val.isEmpty) ? 'Email is required' : null,
                     ),
-                     SizedBox(height: 24),
+                    SizedBox(height: 24),
                     TextFormField(
                       controller: _usernameCtrl,
                       style: TextStyle(
@@ -184,10 +171,11 @@ class _SignUpPageState extends State<SignUpPage> {
                           fontWeight: FontWeight.w600),
                       decoration:
                       _inputDecoration('Username', Icons.person_outline),
-                      validator: (val) =>
-                      (val == null || val.isEmpty) ? 'Username is required' : null,
+                      validator: (val) => (val == null || val.isEmpty)
+                          ? 'Username is required'
+                          : null,
                     ),
-                     SizedBox(height: 24),
+                    SizedBox(height: 24),
                     TextFormField(
                       controller: _passwordCtrl,
                       obscureText: _obscurePassword,
@@ -206,7 +194,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           ? 'Min 6 characters'
                           : null,
                     ),
-                     SizedBox(height: 24),
+                    SizedBox(height: 24),
                     TextFormField(
                       controller: _confirmPasswordCtrl,
                       obscureText: _obscureConfirm,
@@ -228,23 +216,23 @@ class _SignUpPageState extends State<SignUpPage> {
                   ],
                 ),
               ),
-               SizedBox(height: 40),
+              SizedBox(height: 40),
               SizedBox(
                 width: double.infinity,
                 height: 56,
                 child: ElevatedButton(
-                  onPressed: _loading ? null : _signUp,
+                  onPressed: _signUp,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.rubyRed,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(radius),
+                      borderRadius: BorderRadius.circular(20),
                     ),
                     elevation: 8,
                     shadowColor: AppColors.rubyRed.withOpacity(0.6),
                   ),
                   child: _loading
-                      ?  CircularProgressIndicator(color: Colors.white)
-                      :  Text(
+                      ? CircularProgressIndicator(color: Colors.white)
+                      : Text(
                     'Sign Up',
                     style: TextStyle(
                       fontSize: 20,
@@ -255,7 +243,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ),
               ),
-               SizedBox(height: 28),
+              SizedBox(height: 28),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -280,7 +268,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   )
                 ],
               ),
-               SizedBox(height: 40),
+              SizedBox(height: 40),
             ],
           ),
         ),
@@ -289,8 +277,8 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   InputDecoration _inputDecoration(String hint, IconData icon,
-      {VoidCallback? toggle, bool isObscure = false}) {
-    final radius = 20.0;
+      { toggle, bool isObscure = false}) {
+
     return InputDecoration(
       filled: true,
       fillColor: Colors.white,
@@ -307,20 +295,17 @@ class _SignUpPageState extends State<SignUpPage> {
           color: AppColors.rubyRed,
         ),
         onPressed: toggle,
-      )
-          : null,
-      contentPadding:
-       EdgeInsets.symmetric(vertical: 18, horizontal: 20),
+      ) : null,
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(radius),
+        borderRadius: BorderRadius.circular(20),
         borderSide: BorderSide.none,
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(radius),
+        borderRadius: BorderRadius.circular(20),
         borderSide: BorderSide(color: AppColors.rubyRed.withOpacity(0.4)),
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(radius),
+        borderRadius: BorderRadius.circular(20),
         borderSide: BorderSide(color: AppColors.rubyRed, width: 2),
       ),
     );
